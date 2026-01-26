@@ -8,8 +8,7 @@
 </head>
 <body>
     <header>
-        <img src="" alt="">
-         <h1 class="text-3xl font-bold underline S ">Hello world!</h1>
+        
 
     </header>
 
