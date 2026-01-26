@@ -35,11 +35,11 @@
 
         <!-- Botones de Login y Registro en móvil -->
         <div class="flex flex-col gap-4 p-8 border-t border-gray-100 mb-6">
-            <a href="login.php" class="w-full text-center py-4 border-2 border-[#1a4d2e] rounded-xl text-[#1a4d2e] font-bold">
+            <a href="login.php" class="w-full text-center py-4 border-2 border-[#1a4d2e] rounded-xl text-[#1a4d2e] font-bold hover:bg-[#1a4d2e] hover:text-white transition">
                 Iniciar Sesión
             </a>
-            <a href="registro.php" class="w-full py-4 bg-[#D2691E] rounded-xl text-white font-bold flex items-center justify-center gap-2">
-                <span class="text-xl">&#9825;</span> Registrarse
+            <a href="registro.php" class="w-full py-4 bg-[#D2691E] rounded-xl text-white font-bold flex items-center justify-center gap-2 hover:opacity-90 transition shadow-sm">
+                <span class="text-xl ">&#9825;</span> Registrarse
             </a>
         </div>
     </div>
