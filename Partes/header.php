@@ -55,7 +55,7 @@
 
         <a href="registro.php" 
            class="w-full py-4 bg-[#D2691E] rounded-xl text-white font-bold text-center hover:opacity-90 transition">
-           Registrarse
+           Registrarse 
         </a>
     </div>
 </div>
