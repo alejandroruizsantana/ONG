@@ -12,7 +12,7 @@ include '../partes/header.php';
          class="absolute inset-0 w-full h-full object-cover">
 
     <!-- CAPA VERDE PARA LA IMAGEN -->
-    <div class="absolute inset-0 bg-[#1a4d2e]/60"></div>
+    <div class="absolute inset-0 bg-[#1a4d2e]/60 "></div>
 
     <!-- CONTENIDO PRINCIPAL -->
     <div class="relative z-10 text-center px-4 max-w-3xl">
@@ -62,7 +62,7 @@ include '../partes/header.php';
             <h2 class="text-4xl font-serif font-bold text-[#1a4d2e] mt-6 mb-4">
                 ¿Qué hacemos por el Lince?
             </h2>
-            <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed">
+            <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed ">
                 Combinamos acción directa, educación y ciencia para asegurar la supervivencia del lince ibérico.
             </p>
         </div>
