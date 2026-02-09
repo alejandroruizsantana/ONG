@@ -188,7 +188,6 @@ include '../partes/header.php';
 
             <div class="flex items-start gap-6">
                 <div class="w-14 h-14 bg-white/10 rounded-2xl flex-shrink-0 flex items-center justify-center text-[#D2691E] text-2xl shadow-inner">
-                    <i class="fa-solid fa-tree hover:scale-110""></i>
                 </div>
                 <div>
                     <h3 class="text-xl font-bold text-[#1a4d2e] mb-2 font-serif">Restauración del hábitat</h3>
