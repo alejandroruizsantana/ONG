@@ -5,7 +5,7 @@ include '../partes/header.php';
 
 <main class="flex-grow pt-20">
 
-    <section class="bg-[#1a4d2e] py-20 px-4 text-center">
+    <section class="bg-gradient-to-t from-[#D2691E] to-[#1a4d2e]  py-20 px-4 text-center">
         <div class="max-w-4xl mx-auto">
             
             <span class="inline-block bg-[#D2691E] text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase mb-6">
@@ -163,8 +163,8 @@ include '../partes/header.php';
         <div class="space-y-12 mb-16">
             
             <div class="flex items-start gap-6 ">
-                <div class="w-14 h-14 bg-white/10 rounded-2xl flex-shrink-0 flex items-center justify-center text-[#D2691E] text-2xl shadow-inner">
-                    <i class="fa-solid fa-leaf"></i>
+                <div class="w-14 h-14 bg-white/10 rounded-2xl flex-shrink-0 flex items-center justify-center text-[#D2691E] text-2xl shadow-inner ">
+                    <i class="fa-solid fa-leaf hover:scale-110"></i>
                 </div>
                 <div>
                     <h3 class="text-xl font-bold text-[#1a4d2e] mb-2 font-serif">Jornadas de limpieza</h3>
@@ -176,7 +176,7 @@ include '../partes/header.php';
 
             <div class="flex items-start gap-6">
                 <div class="w-14 h-14 bg-white/10 rounded-2xl flex-shrink-0 flex items-center justify-center text-[#D2691E] text-2xl shadow-inner">
-                    <i class="fa-solid fa-shield-halved"></i>
+                    <i class="fa-solid fa-shield-halved hover:scale-110"></i>
                 </div>
                 <div>
                     <h3 class="text-xl font-bold text-[#1a4d2e] mb-2 font-serif">Vigilancia ambiental</h3>
@@ -188,7 +188,7 @@ include '../partes/header.php';
 
             <div class="flex items-start gap-6">
                 <div class="w-14 h-14 bg-white/10 rounded-2xl flex-shrink-0 flex items-center justify-center text-[#D2691E] text-2xl shadow-inner">
-                    <i class="fa-solid fa-tree"></i>
+                    <i class="fa-solid fa-tree hover:scale-110""></i>
                 </div>
                 <div>
                     <h3 class="text-xl font-bold text-[#1a4d2e] mb-2 font-serif">Restauración del hábitat</h3>

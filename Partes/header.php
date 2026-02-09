@@ -39,10 +39,10 @@
 
         <!-- Navegación del menú móvil -->
         <nav class="flex flex-col gap-6 p-8 text-lg items-start">
-            <a href="index.php" class="hover:text-[#D2691E]">Inicio</a>
-            <a href="lince.php" class="hover:text-[#D2691E]">El Lince</a>
-            <a href="quedada.php" class="hover:text-[#D2691E]">Quedadas</a>
-            <a href="recompensas.php" class="hover:text-[#D2691E]">Recompensas</a>
+            <a href="../index.php" class="hover:text-[#D2691E]">Inicio</a>
+            <a href="../vista/lince.php" class="hover:text-[#D2691E]">El Lince</a>
+            <a href="../vista/quedada.php" class="hover:text-[#D2691E]">Quedadas</a>
+            <a href="../vista/recompensas.php" class="hover:text-[#D2691E]">Recompensas</a>
         </nav>
     </div>
 
@@ -73,10 +73,10 @@
 
     <!-- Menú de navegación (ordenador) -->
     <ul class="hidden md:flex items-center gap-5 text-[#e90000]">
-        <li><a href="index.php" class=" text-[#297849] hover:text-[#1a4d2e] hover:border-b-2 border-[#D2691E] pb-1">Inicio</a></li>
-        <li><a href="lince.php" class="text-[#297849] hover:text-[#1a4d2e] hover:border-b-2 border-[#D2691E] pb-1">El lince</a></li>
-        <li><a href="quedada.php" class="text-[#297849] hover:text-[#1a4d2e] hover:border-b-2 border-[#D2691E] pb-1">Quedadas</a></li>
-        <li><a href="recompensas.php" class="text-[#297849] hover:text-[#1a4d2e] hover:border-b-2 border-[#D2691E] pb-1">Recompensas</a></li>
+        <li><a href="../index.php" class=" text-[#297849] hover:text-[#1a4d2e] hover:border-b-2 border-[#D2691E] pb-1">Inicio</a></li>
+        <li><a href="../vista/lince.php" class="text-[#297849] hover:text-[#1a4d2e] hover:border-b-2 border-[#D2691E] pb-1">El lince</a></li>
+        <li><a href="../vista/quedada.php" class="text-[#297849] hover:text-[#1a4d2e] hover:border-b-2 border-[#D2691E] pb-1">Quedadas</a></li>
+        <li><a href="../vista/recompensas.php" class="text-[#297849] hover:text-[#1a4d2e] hover:border-b-2 border-[#D2691E] pb-1">Recompensas</a></li>
     </ul>
 
     <!-- Botones y menú hamburguesa -->
@@ -84,12 +84,12 @@
 
         <!-- Botones login/registro (ordenador) -->
         <div class="hidden md:flex items-center gap-2">
-            <a href="login.php" 
+            <a href="/ONG/vista/loging.php" 
                class="border-2 border-[#1a4d2e] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#1a4d2e] hover:text-white transition">
                Iniciar Sesión
             </a>
 
-            <a href="registro.php" 
+            <a href="/ONG/vista/registro.php" 
                class="bg-[#D2691E] px-4 py-2 rounded-lg text-white text-sm font-semibold hover:opacity-90 transition">
                Registrarse
             </a>
