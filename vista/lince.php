@@ -12,7 +12,7 @@ include '../partes/header.php';
                 Conoce a nuestra especie
             </span>
 
-            <h1 class="text-5xl md:text-7xl font-serif  text-[#1a4d2e] mb-6">
+            <h1 class="text-5xl  md:text-7xl font-serif  text-[#1a4d2e] mb-6 ">
                 El <span class="text-[#D2691E] font-bold">Lince Ibérico</span>
             </h1>
 
