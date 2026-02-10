@@ -5,18 +5,18 @@ include '../partes/header.php';
 
 <main class="flex-grow pt-20">
 
-    <section class="bg-gradient-to-t from-[#D2691E] to-[#1a4d2e]  py-20 px-4 text-center">
+    <section class="bg-[#f4f1ea]  py-20 px-4 text-center">
         <div class="max-w-4xl mx-auto">
             
             <span class="inline-block bg-[#D2691E] text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase mb-6">
                 Conoce a nuestra especie
             </span>
 
-            <h1 class="text-5xl md:text-7xl font-serif font-bold text-white mb-6">
-                El <span class="text-[#D2691E]">Lince Ibérico</span>
+            <h1 class="text-5xl md:text-7xl font-serif  text-[#1a4d2e] mb-6">
+                El <span class="text-[#D2691E] font-bold">Lince Ibérico</span>
             </h1>
 
-            <p class="text-white text-lg md:text-xl leading-relaxed opacity-90">
+            <p class="text-[#1a4d2e] text-lg md:text-xl leading-relaxed opacity-90">
                 El felino más amenazado del mundo y el símbolo de la conservación en la Península Ibérica.
             </p>
 
