@@ -48,7 +48,7 @@
 
     <!-- Botones de login y registro -->
     <div class="flex flex-col gap-4 p-8 border-t border-gray-100 mb-6">
-        <a href="login.php" 
+        <a href="../vista/login.php" 
            class="w-full text-center py-4 border-2 border-[#1a4d2e] rounded-xl font-bold hover:bg-[#1a4d2e] hover:text-white transition">
            Iniciar Sesión
         </a>
@@ -84,7 +84,7 @@
 
         <!-- Botones login/registro (ordenador) -->
         <div class="hidden md:flex items-center gap-2">
-            <a href="/ONG/vista/loging.php" 
+            <a href="../vista/login.php" 
                class="border-2 border-[#1a4d2e] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#1a4d2e] hover:text-white transition">
                Iniciar Sesión
             </a>
