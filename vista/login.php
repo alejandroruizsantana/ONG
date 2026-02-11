@@ -50,11 +50,7 @@
                         <a href="registro.php" class="text-[#D2691E] font-bold hover:underline ml-2">Regístrate aquí</a>
                     </div>
 
-                    <div class="p-4 text-center flex justify-center space-x-4 mt-16 lg:hidden">
-                        <a href="#"><i class="fa-brands fa-twitter text-2xl"></i></a>
-                        <a href="#"><i class="fa-brands fa-facebook text-2xl"></i></a>
-                        <a href="#"><i class="fa-brands fa-instagram text-2xl"></i></a>
-                    </div>
+                   
                 </form>
             </div>
         </div>
