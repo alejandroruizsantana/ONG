@@ -26,10 +26,10 @@
               
                 <form action="" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
                     <div class="pb-2 pt-4">
-                        <input type="email" name="email" id="email" placeholder="Email" class="block w-full p-4 text-lg rounded-sm bg-black border border-white/10 focus:border-[#D2691E] outline-none">
+                        <input type="email" name="email" id="email" placeholder="Email" class="block  w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none">
                     </div>
                     <div class="pb-2 pt-4">
-                        <input class="block w-full p-4 text-lg rounded-sm bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="password" name="password" id="password" placeholder="Password">
+                        <input class="block w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="password" name="password" id="password" placeholder="Contraseña">
                     </div>
 
                     <div class="text-right text-gray-400 hover:text-[#D2691E] mt-2">
@@ -41,7 +41,7 @@
 
                     <div class="px-4 pb-2 pt-8">
                         <button class="uppercase block w-full p-4 text-lg rounded-full bg-[#D2691E] hover:bg-[#b85c1a] focus:outline-none font-bold transition-all">
-                            sign in
+                            Iniciar Sesión
                         </button>
                     </div>
 
