@@ -33,8 +33,7 @@
 
                     <div class="text-right text-gray-400 hover:text-[#D2691E] mt-2">
                         <a href="../index.php" class="group inline-flex items-center gap-2">
-                            <i class="fa-solid fa-arrow-left-long group-hover:-translate-x-1 transition-transform"></i>
-                            Volver a la página principal
+                           🡨 Volver a la página principal
                         </a>
                     </div>
 
