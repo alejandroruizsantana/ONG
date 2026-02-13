@@ -65,8 +65,8 @@
 
     <!-- Logo y nombre -->
     <div class="flex items-center gap-2">
-        <img class="w-16 h-16" src="../assets/imagenes/logo.png" alt="Logo">
-        <h1 class="hidden lg:block text-xl font-bold text-[#1a4d2e]">
+        <img class=" w-20 h-20" src="../assets/imagenes/logo.png" alt="Logo">
+        <h1 class=" md:hidden lg:block text-xl font-bold text-[#1a4d2e] ">
             Latido del lince
         </h1>
     </div>
