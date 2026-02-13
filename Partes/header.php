@@ -17,7 +17,7 @@
     <title>Latido del Lince</title> 
 </head>
 
-<body class="min-h-screen flex flex-col font-serif">
+<body class="min-h-screen flex flex-col font-sans">
 
 <!--MENÚ MÓVIL-->
  <!--Hidden se pone para que no se vea el menu hasta que se pulse el boton con el script-->
@@ -73,10 +73,10 @@
 
     <!-- Menú de navegación (ordenador) -->
     <ul class="hidden md:flex items-center gap-5 text-[#e90000]">
-        <li><a href="../index.php" class=" text-[#297849] hover:text-[#1a4d2e] hover:border-b-2 border-[#D2691E] pb-1">Inicio</a></li>
-        <li><a href="../vista/lince.php" class="text-[#297849] hover:text-[#1a4d2e] hover:border-b-2 border-[#D2691E] pb-1">El lince</a></li>
-        <li><a href="../vista/quedada.php" class="text-[#297849] hover:text-[#1a4d2e] hover:border-b-2 border-[#D2691E] pb-1">Quedadas</a></li>
-        <li><a href="../vista/recompensas.php" class="text-[#297849] hover:text-[#1a4d2e] hover:border-b-2 border-[#D2691E] pb-1">Recompensas</a></li>
+        <li><a href="../index.php" class=" text-[#297849] hover:text-[#1a4d2e] hover:font-bold hover:transition-all hover:border-b-2 border-[#D2691E] pb-1">Inicio</a></li>
+        <li><a href="../vista/lince.php" class="text-[#297849] hover:text-[#1a4d2e] hover:font-bold hover:transition-all hover:border-b-2 border-[#D2691E] pb-1">El lince</a></li>
+        <li><a href="../vista/quedada.php" class="text-[#297849] hover:text-[#1a4d2e] hover:font-bold hover:transition-all hover:border-b-2 border-[#D2691E] pb-1">Quedadas</a></li>
+        <li><a href="../vista/recompensas.php" class="text-[#297849] hover:text-[#1a4d2e] hover:font-bold hover:transition-all hover:border-b-2 border-[#D2691E] pb-1">Recompensas</a></li>
     </ul>
 
     <!-- Botones y menú hamburguesa -->
