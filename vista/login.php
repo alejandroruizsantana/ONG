@@ -19,13 +19,18 @@
             </div>
 
             <div class="w-full py-6 z-20">
+                <div class="hidden lg:block text-left text-gray-400 hover:text-[#D2691E] mt-2">
+                        <a href="../index.php" class="group inline-flex items-center gap-2">
+                           🡨 Volver a la página principal
+                        </a>
+                    </div>
                 <h1 class="my-6 text-4xl md:text-5xl font-serif font-bold">
                     Bienvenido de <span class="text-[#D2691E]">Nuevo</span>
                 </h1>
               
                 <form action="" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
                     <div class="pb-2 pt-4">
-                        <input type="email" name="email" id="email" placeholder="Email" class="block  w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none">
+                        <input type="text" name="usuario" id="usuario" placeholder="Usuario" class="block  w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none">
                     </div>
                     <div class="pb-2 pt-4">
                         <input class="block w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="password" name="password" id="password" placeholder="Contraseña">
@@ -33,10 +38,30 @@
 
                     
 
-                    <div class="text-right text-gray-400 hover:text-[#D2691E] mt-2">
+                    
+
+                    <div class="lg:hidden text-right text-gray-400 hover:text-[#D2691E] mt-2">
                         <a href="../index.php" class="group inline-flex items-center gap-2">
                            🡨 Volver a la página principal
                         </a>
+                    </div>
+
+                    <div class="hidden lg:block text-right mt-2">
+                    <label class="inline-flex items-center gap-2 cursor-pointer text-gray-400 hover:text-[#D2691E]">
+                        
+                        <input 
+                        type="checkbox" 
+                        name="recordar" 
+                        id="recordar"
+                        class="w-4 h-4 rounded border-gray-300 
+                                text-[#D2691E] 
+                                focus:ring-[#D2691E] 
+                                focus:ring-2"
+                        >
+
+                        <span>Recordar nombre de usuario</span>
+
+                    </label>
                     </div>
 
                     <div class="px-4 pb-2 pt-8">
