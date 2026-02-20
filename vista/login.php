@@ -31,6 +31,8 @@
                         <input class="block w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="password" name="password" id="password" placeholder="Contraseña">
                     </div>
 
+                    
+
                     <div class="text-right text-gray-400 hover:text-[#D2691E] mt-2">
                         <a href="../index.php" class="group inline-flex items-center gap-2">
                            🡨 Volver a la página principal
@@ -42,6 +44,8 @@
                             Iniciar Sesión
                         </button>
                     </div>
+
+                    
 
                     <div class="mt-8 text-gray-400">
                         <span>¿No tienes cuenta?</span>
