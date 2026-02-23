@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <title>Login</title>
+    <title>Registro</title>
 </head>
 <body>
     <section class="min-h-screen flex items-stretch text-white">
@@ -28,22 +28,52 @@
                     Unete a la  <span class="text-[#D2691E]">Manada</span>
                 </h1>
               
-                <form action="" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+                <form action="../controlador/controlador_registro.php" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto" method="POST">
                     <div class="pb-2 pt-4">
-                        <input type="text" name="usuario" id="usuario" placeholder="Usuario" class="block  w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none">
+                        <input type="text" name="usuario" id="usuario" placeholder="Usuario" required  class="block  w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none ">
+                        <ul>
+                            <?php if(isset($_SESSION['errores']['usuario'])): ?>
+                                <?php foreach($_SESSION['errores']['usuario'] as $error): ?>
+                                    <li class="text-red-500 text-sm"><?= $error ?></li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </ul>
                     </div>
 
                     <div class="pb-2 pt-4">
-                        <input class="block w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="email" name="email" id="email" placeholder="Email">
+                        <input class="block w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="email" name="email" id="email" placeholder="Email" required  >
+                        <ul>
+                            <?php if(isset($_SESSION['errores']['email'])): ?>
+                                <?php foreach($_SESSION['errores']['email'] as $error): ?>
+                                    <li class="text-red-500 text-sm"><?= $error ?></li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </ul>
                     </div>
 
                     <div class="pb-2 pt-4">
-                        <input class="block w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="password" name="password" id="password" placeholder="Contraseña">
+                        <input class="block w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="password" name="contraseña" id="contraseña" placeholder="Contraseña" required  >
+                         <ul>
+                            <?php if(isset($_SESSION['errores']['contraseña'])): ?>
+                                <?php foreach($_SESSION['errores']['contraseña'] as $error): ?>
+                                    <li class="text-red-500 text-sm "><?= $error ?></li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        </ul>
                     </div>
 
-                    <div class="pb-2 pt-4">
-                        <input class="block w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="password" name="password" id="password" placeholder="Repetir Contraseña">
-                    </div>
+                    <?php
+                    if (isset($_SESSION['errores'])) {
+                        unset($_SESSION['errores']);
+                    }
+                    if (isset($_SESSION['datos'])) {
+                        unset($_SESSION['datos']);
+                    }
+                    ?>
+
+                 
+
+                   
 
                     
 
@@ -69,8 +99,16 @@
 
                    
                 </form>
+<?php
+if (isset($login_correcto)&& $login_correcto){
+    echo "Hola";
+}
+?>
+                
             </div>
         </div>
     </section>
+  
 </body>
 </html>
+

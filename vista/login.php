@@ -30,10 +30,10 @@
               
                 <form action="" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
                     <div class="pb-2 pt-4">
-                        <input type="text" name="usuario" id="usuario" placeholder="Usuario" class="block  w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none">
+                        <input type="text" name="usuario" id="usuario" placeholder="Usuario" required class="block  w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none">
                     </div>
                     <div class="pb-2 pt-4">
-                        <input class="block w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="password" name="password" id="password" placeholder="Contraseña">
+                        <input class="block w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="password" name="password" id="password" placeholder="Contraseña" required>
                     </div>
 
                     
