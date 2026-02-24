@@ -38,10 +38,5 @@ if ($hayErrores){
     header('Location: ../vista/login.php');
     exit;
 }
-
-    
 }
-
-// Si la página se carga directamente
-require_once '../vista/registro.php';
 ?>
