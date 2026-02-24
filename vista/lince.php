@@ -187,7 +187,7 @@ include '../partes/header.php';
             </div>
 
             <div class="flex items-start gap-6">
-                <div class="w-14 h-14 bg-white/10 rounded-2xl flex-shrink-0 flex items-center justify-center text-[#D2691E] text-2xl shadow-inner">
+                <div class="w-14 h-14 bg-white/10 rounded-2xl flex-s    hrink-0 flex items-center justify-center text-[#D2691E] text-2xl shadow-inner">
                     <i class="fa-solid fa-tree hover:scale-110"></i>
                 </div>
                 <div>

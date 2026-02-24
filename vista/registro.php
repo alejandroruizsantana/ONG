@@ -8,10 +8,12 @@
     <title>Registro</title>
 </head>
 <body>
-    <section class="min-h-screen flex items-stretch text-white">
-        <div class="lg:flex w-1/2 hidden bg-gray-500 bg-no-repeat bg-cover relative items-center">
-            <img src="../assets/imagenes/logo.png" alt="">
-            <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
+    <section class=" flex items-stretch text-white">
+        <div class="lg:flex w-1/2 hidden bg-no-repeat bg-cover bg-center relative items-center justify-center" 
+        style="background-image: url('../assets/imagenes/logo.png');">
+        
+        <div class="absolute bg-black opacity-20 inset-0 z-0"></div>
+        
         </div>
 
         <div class="relative lg:w-1/2 min-h-screen w-full flex items-center justify-center text-center md:px-16 px-0 z-0" style="background-color: #161616;">
@@ -30,38 +32,49 @@
                 </h1>
               
                 <form action="../controlador/controlador_registro.php" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto" method="POST">
-                    <div class="pb-2 pt-4">
-                        <input type="text" name="usuario" id="usuario" placeholder="Usuario" required  class="block  w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none ">
-                        <ul>
-                            <?php if(isset($_SESSION['errores']['usuario'])): ?>
-                                <?php foreach($_SESSION['errores']['usuario'] as $error): ?>
-                                    <li class="text-red-500 text-sm"><?= $error ?></li>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
+                   <div class="pb-2 pt-4">
+                    <input type="text" name="usuario" id="usuario" placeholder="Usuario" required  
+                        class="block w-full p-3 text-lg rounded-lg bg-black border <?= isset($_SESSION['errores']['usuario']) ? 'border-red-500' : 'border-white/10' ?> focus:border-[#D2691E] outline-none transition-all">
+                    
+                    <?php if(isset($_SESSION['errores']['usuario'])): ?>
+                        <div class="flex items-center gap-2 mt-2 text-red-400 bg-red-400/10 p-2 rounded-md border border-red-400/20">
+                            <i class="fa-solid fa-circle-exclamation text-xs"></i>
+                            <span class="text-xs font-medium">
+                                <?= implode(', ', $_SESSION['errores']['usuario']) ?>
+                            </span>
+                        </div>
+                    <?php endif; ?>
+                </div>
 
-                    <div class="pb-2 pt-4">
-                        <input class="block w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="email" name="email" id="email" placeholder="Email" required  >
-                        <ul>
-                            <?php if(isset($_SESSION['errores']['email'])): ?>
-                                <?php foreach($_SESSION['errores']['email'] as $error): ?>
-                                    <li class="text-red-500 text-sm"><?= $error ?></li>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
+                <div class="pb-2 pt-4">
+                    <input type="email" name="email" id="email" placeholder="Email" required 
+                        class="block w-full p-3 text-lg rounded-lg bg-black border <?= isset($_SESSION['errores']['email']) ? 'border-red-500' : 'border-white/10' ?> focus:border-[#D2691E] outline-none transition-all">
+                    
+                    <?php if(isset($_SESSION['errores']['email'])): ?>
+                        <div class="flex items-center gap-2 mt-2 text-red-400 bg-red-400/10 p-2 rounded-md border border-red-400/20">
+                            <i class="fa-solid fa-circle-exclamation text-xs"></i>
+                            <span class="text-xs font-medium">
+                                <?= implode(', ', $_SESSION['errores']['email']) ?>
+                            </span>
+                        </div>
+                    <?php endif; ?>
+                </div>
 
-                    <div class="pb-2 pt-4">
-                        <input class="block w-full p-4 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="password" name="contraseña" id="contraseña" placeholder="Contraseña" required  >
-                         <ul>
-                            <?php if(isset($_SESSION['errores']['contraseña'])): ?>
-                                <?php foreach($_SESSION['errores']['contraseña'] as $error): ?>
-                                    <li class="text-red-500 text-sm "><?= $error ?></li>
-                                <?php endforeach; ?>
-                            <?php endif; ?>
-                        </ul>
-                    </div>
+                <div class="pb-2 pt-4">
+                    <input type="password" name="contraseña" id="contraseña" placeholder="Contraseña" required 
+                        class="block w-full p-3 text-lg rounded-lg bg-black border <?= isset($_SESSION['errores']['contraseña']) ? 'border-red-500' : 'border-white/10' ?> focus:border-[#D2691E] outline-none transition-all">
+                    
+                    <?php if(isset($_SESSION['errores']['contraseña'])): ?>
+                        <div class="flex items-center gap-2 mt-2 text-red-400 bg-red-400/10 p-2 rounded-md border border-red-400/20">
+                            <i class="fa-solid fa-circle-exclamation text-xs"></i>
+                            <span class="text-xs font-medium">
+                                <?= implode(', ', $_SESSION['errores']['contraseña']) ?>
+                            </span>
+                        </div>
+                    <?php endif; ?>
+                </div>
+
+                    
 
                     <?php
                     if (isset($_SESSION['errores'])) {
@@ -100,11 +113,7 @@
 
                    
                 </form>
-<?php
-if (isset($login_correcto)&& $login_correcto){
-    echo "Hola";
-}
-?>
+
                 
             </div>
         </div>

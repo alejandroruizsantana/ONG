@@ -1,5 +1,6 @@
 <?php
 require_once '../modelo/modelo_usuarios.php';
+require_once '../conexion/conexion_base_datos.php';
 session_start();
 $errores = [];
 
