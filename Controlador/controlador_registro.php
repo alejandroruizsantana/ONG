@@ -1,6 +1,5 @@
 <?php
 require_once '../modelo/modelo_usuarios.php';
-require_once '../conexion/conexion_base_datos.php';
 session_start();
 $errores = [];
 
@@ -36,8 +35,41 @@ if ($hayErrores){
 } else {
     // Registro exitoso
     $_SESSION['datos'] = $datos;
+        $_SESSION['datos'] = $datos;
+
+    // Conexión a la base de datos
+ 
+    if (!$conexion){
+        die("Error de conexión a base de datos: " . mysqli_connect_error());
+    }
+
+    // Encriptar contraseña
+    $contraseña_cifrada = password_hash($datos['contrasena'], PASSWORD_DEFAULT);
+
+    // Preparar consulta
+    $stmt = mysqli_prepare($conexion, "INSERT INTO usuarios(usuario,email,contrasena) VALUES(?, ?, ?)");
+
+    if ($stmt){
+        mysqli_stmt_bind_param($stmt, "sss", $datos['usuario'], $datos['email'], $contraseña_cifrada);
+
+        if (!mysqli_stmt_execute($stmt)){
+            echo "Error al insertar: " . mysqli_stmt_error($stmt);
+            exit; 
+        }
+    } else {
+        echo "Error al preparar la consulta: " . mysqli_error($conexion);
+        exit;
+    }
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conexion);
     header('Location: ../vista/login.php');
     exit;
 }
+
+    
 }
+
+// Si la página se carga directamente
+require_once '../vista/registro.php';
 ?>

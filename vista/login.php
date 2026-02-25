@@ -8,8 +8,9 @@
 </head>
 <body>
     <section class="min-h-screen flex items-stretch text-white">
-        <div class="lg:flex w-1/2 hidden bg-gray-500 bg-no-repeat bg-cover relative items-center">
-            <img src="../assets/imagenes/logo.png" alt="">
+        <div class="lg:flex w-1/2 hidden bg-no-repeat bg-cover bg-center relative items-center justify-center" 
+        style="background-image: url('../assets/imagenes/logo.png');">
+
             <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
         </div>
 
@@ -33,7 +34,7 @@
                         <input type="text" name="usuario" id="usuario" placeholder="Usuario" required class="block  w-full p-3 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none">
                     </div>
                     <div class="pb-2 pt-4">
-                        <input class="block w-full p-3 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="password" name="password" id="password" placeholder="Contraseña" required>
+                        <input class="block w-full p-3 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none" type="contrasena" name="contrasena" id="contrasena" placeholder="Contraseña" required>
                     </div>
 
                     
