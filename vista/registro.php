@@ -12,7 +12,7 @@
         <div class="lg:flex w-1/2 hidden bg-no-repeat bg-cover bg-center relative items-center justify-center" 
         style="background-image: url('../assets/imagenes/logo.png');">
         
-        <div class="absolute bg-black opacity-20 inset-0 z-0"></div>
+        
         
         </div>
 

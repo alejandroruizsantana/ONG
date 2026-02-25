@@ -11,7 +11,7 @@
         <div class="lg:flex w-1/2 hidden bg-no-repeat bg-cover bg-center relative items-center justify-center" 
         style="background-image: url('../assets/imagenes/logo.png');">
 
-            <div class="absolute bg-black opacity-60 inset-0 z-0"></div>
+            
         </div>
 
         <div class="lg:w-1/2 w-full flex items-center justify-center text-center md:px-16 px-0 z-0" style="background-color: #161616;">
