@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="pb-2 pt-4">
-                    <input type="password" name="contraseña" id="contraseña" placeholder="Contraseña" required 
+                    <input type="password" name="contrasena" id="contrasena" placeholder="Contraseña" required 
                         class="block w-full p-3 text-lg rounded-lg bg-black border <?= isset($_SESSION['errores']['contraseña']) ? 'border-red-500' : 'border-white/10' ?> focus:border-[#D2691E] outline-none transition-all">
                     
                     <?php if(isset($_SESSION['errores']['contraseña'])): ?>

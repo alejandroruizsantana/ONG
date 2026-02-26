@@ -29,7 +29,7 @@
                     Bienvenido de <span class="text-[#D2691E]">Nuevo</span>
                 </h1>
               
-                <form action="" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
+                <form action="../Controlador/controlador_login.php" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
                     <div class="pb-2 pt-4">
                         <input type="text" name="usuario" id="usuario" placeholder="Usuario" required class="block  w-full p-3 text-lg rounded-lg bg-black border border-white/10 focus:border-[#D2691E] outline-none">
                     </div>

@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     // Validamos
     $errores = validar($datos);
 
-   $errores = validar($datos);
+
 
 // Comprobar si hay errores reales
 $hayErrores = false;
@@ -29,13 +29,12 @@ foreach ($errores as $campo => $listaErrores) {
 if ($hayErrores){
     // Guardamos errores y datos para mostrarlos
     $_SESSION['errores'] = $errores;
-    $_SESSION['datos'] = $datos;
     header('Location: ../vista/registro.php');
     exit;
 } else {
     // Registro exitoso
-    $_SESSION['datos'] = $datos;
-        $_SESSION['datos'] = $datos;
+    $_SESSION['datos_registro'] = $datos;
+
 
     // Conexión a la base de datos
  
