@@ -36,9 +36,10 @@ if ($hayErroreslogin){
     exit;
 }
 
+//Si supera el maximo de intentos llevamos a página de bloqueo
 if ($_SESSION['intentos'] >= 3){
     $_SESSION['errores_login']='Has superado el máximo de intentos';
-    header('Location: ../vista/login.php');
+    header('Location: ../vista/bloqueo.php');
     exit;
 }
 
