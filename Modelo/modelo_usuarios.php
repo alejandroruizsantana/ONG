@@ -45,20 +45,22 @@ function validar($datos){
 
 }
 
-//Validaciones del login
+// Validaciones del login
 function validar_login($datos_login){
-    $errores =[
+    $errores = [
         'usuario' => [],
         'contrasena' => []
     ];
 
-    if (empty($datos_login['usuario'])){
-        $errores['usuario'][]="El campo usuario esta vacio";
+    // Cambiamos 'usuario' por 'usuario_login' para que coincida con el controlador
+    if (empty($datos_login['usuario_login'])){
+        $errores['usuario'][] = "El campo usuario está vacío";
     }
 
-    if (empty($datos_login['contrasena'])){
-        $errores['contrasena'][]="El campo contraseña esta vacio";
+    // Cambiamos 'contrasena' por 'contrasena_login'
+    if (empty($datos_login['contrasena_login'])){
+        $errores['contrasena'][] = "El campo contraseña está vacío";
     }
+
     return $errores;
 }
-?>

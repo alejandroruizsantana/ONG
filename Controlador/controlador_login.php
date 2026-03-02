@@ -4,71 +4,84 @@ require_once '../modelo/modelo_usuarios.php';
 require_once '../conexion/conexion_base_datos.php';
 
 if (!isset($_SESSION['intentos'])){
-    $_SESSION['intentos']=0;
+    $_SESSION['intentos'] = 0;
 }
 
-$cookie_usuario=$_COOKIE['recordar_usuario'] ?? "";
+if ($_SERVER['REQUEST_METHOD'] === 'POST'){
+    $errores = [];
 
+    $datos_login = [
+        'usuario_login' => sanear($_POST['usuario']),
+        'contrasena_login' => sanear($_POST['contrasena'])
+    ];
 
-if ($_SERVER['REQUEST_METHOD']==='POST'){
-    $errores=[];
+    // 1. Validamos los campos
+    $errores = validar_login($datos_login);
 
-$datos_login=[
-'usuario_login' => sanear($_POST['usuario']),
-
-'contrasena_login' => sanear($_POST['contrasena'])
-
-];
-
-$errores=validar_login($datos_login);
-
-$hayErroreslogin = false;
-foreach ($errores as $campo => $listaErrores) {
-    if (!empty($listaErrores)) {
-        $hayErroreslogin = true;
-        break;
+    $hayErroreslogin = false;
+    foreach ($errores as $campo => $listaErrores) {
+        if (!empty($listaErrores)) {
+            $hayErroreslogin = true;
+            break;
+        }
     }
-}
 
-if ($hayErroreslogin){
-    $_SESSION['errores_campos']=$errores;
-    header('Location:../vista/login.php');
-    exit;
-}
+    if ($hayErroreslogin){
+        $_SESSION['errores_campos'] = $errores;
+        header('Location: ../vista/login.php');
+        exit;
+    }
 
-//Si supera el maximo de intentos llevamos a página de bloqueo
-if ($_SESSION['intentos'] >= 3){
-    $_SESSION['errores_login']='Has superado el máximo de intentos';
-    header('Location: ../vista/bloqueo.php');
-    exit;
-}
+    // 2. Control de intentos
+    if ($_SESSION['intentos'] >= 3){
+        $_SESSION['errores_login'] = 'Has superado el máximo de intentos';
+        header('Location: ../vista/bloqueo.php');
+        exit;
+    }
 
-//Cogemos los datos de la base de datos
-$stmt=mysqli_prepare($conexion,"SELECT * FROM usuarios WHERE usuarios=? ");
+    // 3. CONSULTA CON ESTRUCTURA WHILE
+    $sql = "SELECT id,usuario,contrasena,rol FROM usuarios WHERE usuario = ?";
 
-mysqli_stmt_bind_param($stmt,"s",$datos_login['usuario_login']);
+    $stmt = mysqli_prepare($conexion, $sql);
 
-mysqli_stmt_execute($stmt);
+    mysqli_stmt_bind_param($stmt, "s", $datos_login['usuario_login']);
+    
+    mysqli_stmt_execute($stmt);
+    
+    $resultado = mysqli_stmt_get_result($stmt);
+    
+    // Inicializamos la variable vacía
+    $usuariobd = null;
 
-$usuariobd= mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
+    // Recorremos el resultado (aunque solo haya uno)
+    while ($fila = mysqli_fetch_assoc($resultado)) {
+        $usuariobd = $fila;
+    }
 
+    mysqli_stmt_close($stmt);
 
-if ($usuariobd && password_verify($datos_login['contrasena_login'],$usuariobd['contrasena'])){
-    $_SESSION['usuario']=$usuariobd['usuario'];
-    $_SESSION['id']=$usuariobd['id'];
-    $_SESSION['intentos']=0;
+    // 4. VERIFICACIÓN FINAL
+    if ($usuariobd && password_verify($datos_login['contrasena_login'], $usuariobd['contrasena'])){
+        // ÉXITO
+        $_SESSION['usuario'] = $usuariobd['usuario'];
+        $_SESSION['id'] = $usuariobd['id'];
+        $_SESSION['rol'] = $usuariobd['rol'];
+        $_SESSION['intentos'] = 0;
 
-    header('Location: ../vista/panel.php');
+        if (isset($_POST['recordar'])) {
+            setcookie('recordar_usuario', $datos_login['usuario_login'], time() + (86400 * 30), "/");
+        } else {
+            setcookie('recordar_usuario', '', time() - 3600, "/");
+        }
 
-
-} else {
-    $_SESSION['errores_login']="Usuario o contraseña incorectos";
-    $_SESSION['intentos']++;
-    header("Location: ../vista/login.php");
-    exit;
-}
-
-
-
+        header('Location: ../vista/inicio.php');
+        exit;
+    } else {
+        // FALLO
+        $_SESSION['errores_login'] = "Usuario o contraseña incorrectos";
+        $_SESSION['intentos']++;
+        header("Location: ../vista/login.php");
+        exit;
+    }
 }
 ?>

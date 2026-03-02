@@ -1,5 +1,7 @@
 <?php
 require_once '../modelo/modelo_usuarios.php';
+require_once '../conexion/conexion_base_datos.php';
+
 session_start();
 $errores = [];
 
@@ -9,12 +11,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $datos = [
         'usuario' => sanear($_POST['usuario']),
         'email' => sanear($_POST['email']),
-        'contraseña' => sanear($_POST['contraseña']),
+        'contrasena' => sanear($_POST['contrasena']),
     ];
 
     // Validamos
     $errores = validar($datos);
 
+  // 2. Verificación de duplicados en BD (Solo si la conexión existe)
+    if ($conexion) {
+
+        $sql_check = "SELECT usuario, email FROM usuarios WHERE usuario = ? OR email = ?";
+
+        $stmt_check = mysqli_prepare($conexion, $sql_check);
+
+        mysqli_stmt_bind_param($stmt_check, "ss", $datos['usuario'], $datos['email']);
+
+        mysqli_stmt_execute($stmt_check);
+        
+        $resultado = mysqli_stmt_get_result($stmt_check);
+
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            if ($fila['usuario'] === $datos['usuario']) {
+                $errores['usuario'][] = "El nombre de usuario ya está en uso.";
+            }
+            if ($fila['email'] === $datos['email']) {
+                $errores['email'][] = "Este correo electrónico ya está registrado.";
+            }
+        }
+        mysqli_stmt_close($stmt_check);
+    }
 
 
 // Comprobar si hay errores reales
@@ -35,21 +60,14 @@ if ($hayErrores){
     // Registro exitoso
     $_SESSION['datos_registro'] = $datos;
 
-
-    // Conexión a la base de datos
- 
-    if (!$conexion){
-        die("Error de conexión a base de datos: " . mysqli_connect_error());
-    }
-
     // Encriptar contraseña
-    $contraseña_cifrada = password_hash($datos['contrasena'], PASSWORD_DEFAULT);
+    $contrasena_cifrada = password_hash($datos['contrasena'], PASSWORD_DEFAULT);
 
     // Preparar consulta
     $stmt = mysqli_prepare($conexion, "INSERT INTO usuarios(usuario,email,contrasena) VALUES(?, ?, ?)");
 
     if ($stmt){
-        mysqli_stmt_bind_param($stmt, "sss", $datos['usuario'], $datos['email'], $contraseña_cifrada);
+        mysqli_stmt_bind_param($stmt, "sss", $datos['usuario'], $datos['email'], $contrasena_cifrada);
 
         if (!mysqli_stmt_execute($stmt)){
             echo "Error al insertar: " . mysqli_stmt_error($stmt);
@@ -59,6 +77,8 @@ if ($hayErrores){
         echo "Error al preparar la consulta: " . mysqli_error($conexion);
         exit;
     }
+
+    
 
     mysqli_stmt_close($stmt);
     mysqli_close($conexion);
