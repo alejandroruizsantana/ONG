@@ -85,12 +85,12 @@
         <!-- Botones login/registro (ordenador) -->
         <div class="hidden md:flex items-center gap-2">
             <a href="../vista/login.php" 
-               class="border-2 border-[#1a4d2e] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#1a4d2e] hover:text-white transition">
+               class="border-2 border-[#1a4d2e] px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#1a4d2e] hover:text-white transition duration-500">
                Iniciar Sesión
             </a>
 
             <a href="../vista/registro.php" 
-               class="bg-[#D2691E] px-4 py-2 rounded-lg text-white text-sm font-semibold hover:opacity-90 transition">
+               class="bg-[#D2691E] px-4 py-2 rounded-lg text-white text-sm font-semibold hover:opacity-90 transition ">
                Registrarse
             </a>
         </div>
