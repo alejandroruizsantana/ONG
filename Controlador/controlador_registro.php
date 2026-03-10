@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $datos = [
         'usuario' => sanear($_POST['usuario']),
         'email' => sanear($_POST['email']),
-        'contrasena' => sanear($_POST['contrasena']),
+        'contraseña' => sanear($_POST['contraseña']),
     ];
 
     // Validamos
@@ -61,7 +61,7 @@ if ($hayErrores){
     $_SESSION['datos_registro'] = $datos;
 
     // Encriptar contraseña
-    $contrasena_cifrada = password_hash($datos['contrasena'], PASSWORD_DEFAULT);
+    $contrasena_cifrada = password_hash($datos['contraseña'], PASSWORD_DEFAULT);
 
     // Preparar consulta
     $stmt = mysqli_prepare($conexion, "INSERT INTO usuarios(usuario,email,contrasena) VALUES(?, ?, ?)");

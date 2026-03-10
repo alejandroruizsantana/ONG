@@ -56,13 +56,13 @@ $usuario_recordado = $_COOKIE['recordar_usuario'] ?? '';
                     </div>
 
                     <div class="pb-2 pt-4">
-                        <input class="block w-full p-3 text-lg rounded-lg bg-black border <?= isset($_SESSION['errores_campos']['contrasena']) ? 'border-red-500' : 'border-white/10' ?> focus:border-[#D2691E] outline-none transition-all" 
+                        <input class="block w-full p-3 text-lg rounded-lg bg-black border <?= isset($_SESSION['errores_campos']['contraseña']) ? 'border-red-500' : 'border-white/10' ?> focus:border-[#D2691E] outline-none transition-all" 
                                type="password" name="contrasena" id="contrasena" placeholder="Contraseña" required>
                         
-                        <?php if(isset($_SESSION['errores_campos']['contrasena'])): ?>
+                        <?php if(isset($_SESSION['errores_campos']['contraseña'])): ?>
                             <div class="flex items-center gap-2 mt-2 text-red-400 bg-red-400/10 p-2 rounded-md border border-red-400/20 text-left">
                                 <i class="fa-solid fa-circle-exclamation text-xs"></i>
-                                <span class="text-xs font-medium"><?= implode(', ', $_SESSION['errores_campos']['contrasena']) ?></span>
+                                <span class="text-xs font-medium"><?= implode(', ', $_SESSION['errores_campos']['contraseña']) ?></span>
                             </div>
                         <?php endif; ?>
                     </div>

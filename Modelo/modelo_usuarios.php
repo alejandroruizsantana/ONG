@@ -12,7 +12,7 @@ function validar($datos){
     $errores = [
         'usuario' => [],
         'email' => [],
-        'contrasena' => []
+        'contraseña' => []
     ];
 
     // Validación usuario
@@ -34,10 +34,10 @@ function validar($datos){
     }
 
     // Validación contraseña
-    if (empty($datos['contrasena'])){
-        $errores['contrasena'][] = "El campo contraseña está vacío";
-    } elseif (strlen($datos['contrasena']) < 4){
-        $errores['contrasena'][] = "El campo contraseña debe contener como mínimo 4 caracteres.";
+    if (empty($datos['contraseña'])){
+        $errores['contraseña'][] = "El campo contraseña está vacío";
+    } elseif (strlen($datos['contraseña']) < 4){
+        $errores['contraseña'][] = "El campo contraseña debe contener como mínimo 4 caracteres.";
     }
 
     return $errores;
@@ -49,7 +49,7 @@ function validar($datos){
 function validar_login($datos_login){
     $errores = [
         'usuario' => [],
-        'contrasena' => []
+        'contraseña' => []
     ];
 
     // Cambiamos 'usuario' por 'usuario_login' para que coincida con el controlador
@@ -59,7 +59,7 @@ function validar_login($datos_login){
 
     // Cambiamos 'contrasena' por 'contrasena_login'
     if (empty($datos_login['contrasena_login'])){
-        $errores['contrasena'][] = "El campo contraseña está vacío";
+        $errores['contraseña'][] = "El campo contraseña está vacío";
     }
 
     return $errores;
