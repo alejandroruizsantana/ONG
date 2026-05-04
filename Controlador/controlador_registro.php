@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $datos = [
         'usuario' => sanear($_POST['usuario']),
         'email' => sanear($_POST['email']),
-        'contraseña' => sanear($_POST['contraseña']),
+        'contraseña' => trim($_POST['contraseña']),
     ];
 
     // Validamos

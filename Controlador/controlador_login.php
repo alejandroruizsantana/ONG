@@ -12,7 +12,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     $datos_login = [
         'usuario_login' => sanear($_POST['usuario']),
-        'contrasena_login' => sanear($_POST['contrasena'])
+        'contrasena_login' => trim($_POST['contrasena'])
     ];
 
     // 1. Validamos los campos
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             setcookie('recordar_usuario', '', time() - 3600, "/");
         }
 
-        header('Location: ../vista/inicio.php');
+        header('Location: ../vista/Inicio.php');
         exit;
     } else {
         // FALLO

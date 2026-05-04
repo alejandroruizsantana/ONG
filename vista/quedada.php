@@ -17,24 +17,10 @@ include '../Partes/header.php';
                 Únete a nuestros voluntarios y ayuda a mantener limpio el hábitat del lince ibérico. ¡Cada mano cuenta!
             </p>
 
-            <div class="grid grid-cols-1  md:grid-cols-3 gap-8 pt-10 border-t border-white/10">
-                <div>
-                    <span class="block text-4xl font-bold text-white">50+</span>
-                    <span class="text-sm uppercase tracking-wider text-gray-300">Eventos realizados</span>
-                </div>
-                <div>
-                    <span class="block text-4xl font-bold text-[#D2691E]">15 ton</span>
-                    <span class="text-sm uppercase tracking-wider text-gray-300">Residuos recogidos</span>
-                </div>
-                <div>
-                    <span class="block text-4xl font-bold text-white">5000+</span>
-                    <span class="text-sm uppercase tracking-wider text-gray-300">Voluntarios</span>
-                </div>
-            </div>
         </div>
     </section>
 
-    <section class=" py-1 px-4">
+    <section class="py-16 px-4">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-16">
                 <h2 class="text-4xl md:text-5xl font-serif font-bold text-[#1a4d2e] mb-4">Próximos Eventos</h2>

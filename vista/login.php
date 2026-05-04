@@ -1,5 +1,7 @@
 <?php 
 session_start(); 
+// Resetear intentos para debug
+unset($_SESSION['intentos']);
 // Recuperamos el nombre si existe la cookie
 $usuario_recordado = $_COOKIE['recordar_usuario'] ?? '';
 ?>
