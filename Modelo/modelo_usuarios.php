@@ -52,12 +52,12 @@ function validar_login($datos_login){
         'contraseña' => []
     ];
 
-    // Cambiamos 'usuario' por 'usuario_login' para que coincida con el controlador
+    //Si el campo usuario esta vacio mostramos el error
     if (empty($datos_login['usuario_login'])){
         $errores['usuario'][] = "El campo usuario está vacío";
     }
 
-    // Cambiamos 'contrasena' por 'contrasena_login'
+    // Si el campo contraseña esta vacio mostramos el error de contraseña vacia
     if (empty($datos_login['contrasena_login'])){
         $errores['contraseña'][] = "El campo contraseña está vacío";
     }
@@ -67,7 +67,7 @@ function validar_login($datos_login){
 
 // Obtener datos completos del usuario por ID
 function obtener_usuario_por_id($conexion, $id) {
-    $sql = "SELECT id, usuario, email, rol, foto FROM usuarios WHERE id = ?";
+    $sql = "SELECT id, usuario, email, rol, foto_perfil FROM usuarios WHERE id = ?";
     $stmt = mysqli_prepare($conexion, $sql);
     
     if (!$stmt) {
