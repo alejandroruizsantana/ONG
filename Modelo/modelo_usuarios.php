@@ -64,3 +64,21 @@ function validar_login($datos_login){
 
     return $errores;
 }
+
+// Obtener datos completos del usuario por ID
+function obtener_usuario_por_id($conexion, $id) {
+    $sql = "SELECT id, usuario, email, rol, foto FROM usuarios WHERE id = ?";
+    $stmt = mysqli_prepare($conexion, $sql);
+    
+    if (!$stmt) {
+        return null;
+    }
+    
+    mysqli_stmt_bind_param($stmt, "i", $id);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
+    $usuario_datos = mysqli_fetch_assoc($resultado);
+    mysqli_stmt_close($stmt);
+    
+    return $usuario_datos;
+}
