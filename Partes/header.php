@@ -101,6 +101,7 @@
                             <?php echo $_SESSION['usuario']; ?>
                         </p>
                     </div>
+                    
                     <div class="w-10 h-10 rounded-full border-2 border-[#D2691E] overflow-hidden group-hover:scale-105 transition-transform shadow-sm">
                         <img src="../assets/imagenes/<?php echo !empty($_SESSION['foto_perfil']) ? $_SESSION['foto_perfil'] : 'avatar_default.jpg'; ?>" alt="Perfil" class="w-full h-full object-cover">
                     </div>
