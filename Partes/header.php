@@ -23,7 +23,7 @@
         <div class="flex items-center justify-between p-4 border-b border-gray-100">
             <img class="w-10 h-10" src="../assets/imagenes/logo.png" alt="Logo">
             <button onclick="toggleMenu()" class="text-[#1a4d2e] p-2 text-4xl font-sans leading-none">
-                &times;
+                &times; <!-- Boton x para cerrar el menu -->
             </button>
         </div>
 
@@ -47,7 +47,7 @@
             <!-- Si existe el usuario sale su avatar y nombre -->
             <a href="../vista/perfil_usuario.php" class="flex items-center gap-4 mb-4 p-2 bg-gray-50 rounded-xl">
                 <div class="w-12 h-12 rounded-full border-2 border-[#D2691E] overflow-hidden">
-                    <img src="../assets/imagenes/<?php echo !empty($_SESSION['foto_perfil']) ? $_SESSION['foto_perfil'] : 'avatar_default.png'; ?>" alt="Perfil" class="w-full h-full object-cover">
+                    <img src="../assets/imagenes/<?php echo !empty($_SESSION['foto_perfil']) ? $_SESSION['foto_perfil'] : 'avatar_default.jpg'; ?>" alt="Perfil" class="w-full h-full object-cover">
                 </div>
                 <span class="font-bold"><?php echo $_SESSION['usuario']; ?></span>
             </a>
@@ -74,7 +74,7 @@
         <h1 class="hidden lg:block text-xl font-bold text-[#1a4d2e]">Latido del lince</h1>
     </div>
 
-    <!-- Navegación principal: oculta hasta lg, centrada con grid -->
+    <!-- Navegación principal  -->
     <ul class="hidden lg:flex items-center justify-center gap-5">
         <li><a href="../index.php" class="text-[#297849] hover:text-[#1a4d2e] hover:font-bold hover:border-b-2 border-[#D2691E] pb-1">Inicio</a></li>
         <li><a href="../vista/lince.php" class="text-[#297849] hover:text-[#1a4d2e] hover:font-bold hover:border-b-2 border-[#D2691E] pb-1">El lince</a></li>
@@ -98,7 +98,7 @@
                         </p>
                     </div>
                     <div class="w-10 h-10 rounded-full border-2 border-[#D2691E] overflow-hidden group-hover:scale-105 transition-transform shadow-sm">
-                        <img src="../assets/imagenes/<?php echo !empty($_SESSION['foto_perfil']) ? $_SESSION['foto_perfil'] : 'avatar_default.png'; ?>" alt="Perfil" class="w-full h-full object-cover">
+                        <img src="../assets/imagenes/<?php echo !empty($_SESSION['foto_perfil']) ? $_SESSION['foto_perfil'] : 'avatar_default.jpg'; ?>" alt="Perfil" class="w-full h-full object-cover">
                     </div>
                 </a>
 
@@ -141,7 +141,7 @@
             </div>
         <?php endif; ?>
 
-        <!-- Botón hamburguesa (móvil y tablet, oculto desde lg) -->
+        <!-- Botón hamburguesa para movil y tablets -->
         <button onclick="toggleMenu()" class="lg:hidden p-2 border-2 border-[#1a4d2e] rounded-md text-[#1a4d2e]">
             <i class="fa-solid fa-bars h-6 w-6 flex items-center justify-center"></i>
         </button>
