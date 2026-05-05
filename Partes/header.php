@@ -21,7 +21,9 @@
 
         <!-- Cabecera del menú móvil: logo y botón de cierre -->
         <div class="flex items-center justify-between p-4 border-b border-gray-100">
-            <img class="w-10 h-10" src="../assets/imagenes/logo.png" alt="Logo">
+            <a href="../index.php">
+                <img class="w-10 h-10" src="../assets/imagenes/logo.png" alt="Logo">
+            </a>
             <button onclick="toggleMenu()" class="text-[#1a4d2e] p-2 text-4xl font-sans leading-none">
                 &times; <!-- Boton x para cerrar el menu -->
             </button>
@@ -70,7 +72,9 @@
 
     <!-- Logo y nombre del sitio -->
     <div class="flex items-center gap-2">
-        <img class="w-20 h-20" src="../assets/imagenes/logo.png" alt="Logo">
+        <a href="../index.php">
+                <img class="w-20 h-20" src="../assets/imagenes/logo.png" alt="Logo">
+            </a>
         <h1 class="hidden lg:block text-xl font-bold text-[#1a4d2e]">Latido del lince</h1>
     </div>
 

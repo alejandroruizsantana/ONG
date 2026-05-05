@@ -61,7 +61,7 @@ $usuario_datos = obtener_usuario_por_id($conexion, $_SESSION['id']);
                             </span>
                             <input type="text" name="nuevo_usuario" 
                                    value="<?php echo htmlspecialchars($usuario_datos['usuario']); ?>" 
-                                   class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#1a4d2e] focus:border-transparent outline-none transition">
+                                   class="w-full pl-10 pr-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-[#1a4d2e]  outline-none transition">
                         </div>
                     </div>
 
