@@ -1,7 +1,5 @@
 <?php
-// Reporte de errores para desarrollo
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
+
 
 include '../partes/header.php';
 require_once '../conexion/conexion_base_datos.php';
@@ -22,10 +20,10 @@ if (!$usuario_datos) {
 }
 
 // Sincronizar sesión
-$_SESSION['foto_perfil'] = $usuario_datos['foto_perfil'] ?? 'avatar_default.png';
+$_SESSION['foto_perfil'] = $usuario_datos['foto_perfil'] ?? 'avatar_default.jpg';
 $_SESSION['rol'] = $usuario_datos['rol'];
 
-// Datos de ejemplo (En el futuro estos vendrán de consultas COUNT en tu BD)
+//Datos ejemplo (Despues hacer en la base de datos)
 $total_quedadas = 3; 
 $total_donado = 25;
 ?>

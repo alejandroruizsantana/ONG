@@ -39,26 +39,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         exit;
     }
 
-    // 3. CONSULTA CON ESTRUCTURA WHILE
-    $sql = "SELECT id,usuario,contrasena,rol FROM usuarios WHERE usuario = ?";
-
-    $stmt = mysqli_prepare($conexion, $sql);
-
-    mysqli_stmt_bind_param($stmt, "s", $datos_login['usuario_login']);
-    
-    mysqli_stmt_execute($stmt);
-    
-    $resultado = mysqli_stmt_get_result($stmt);
-    
-    // Inicializamos la variable vacía
-    $usuariobd = null;
-
-    // Recorremos el resultado (aunque solo haya uno)
-    while ($fila = mysqli_fetch_assoc($resultado)) {
-        $usuariobd = $fila;
-    }
-
-    mysqli_stmt_close($stmt);
+    // 3. CONSULTA AL MODELO
+    $usuariobd = obtener_usuario_por_login($conexion, $datos_login['usuario_login']);
 
     // 4. VERIFICACIÓN FINAL
     if ($usuariobd && password_verify($datos_login['contrasena_login'], $usuariobd['contrasena'])){
@@ -66,6 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $_SESSION['usuario'] = $usuariobd['usuario'];
         $_SESSION['id'] = $usuariobd['id'];
         $_SESSION['rol'] = $usuariobd['rol'];
+        $_SESSION['foto_perfil'] = $usuariobd['foto_perfil'] ?? 'avatar_default.png';
         $_SESSION['intentos'] = 0;
 
         if (isset($_POST['recordar'])) {

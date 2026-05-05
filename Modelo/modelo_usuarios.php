@@ -82,3 +82,58 @@ function obtener_usuario_por_id($conexion, $id) {
     
     return $usuario_datos;
 }
+
+// Comprobar si el usuario o el email ya existen (para el registro)
+function comprobar_duplicados_registro($conexion, $usuario, $email) {
+    $errores_duplicados = [];
+    $sql_check = "SELECT usuario, email FROM usuarios WHERE usuario = ? OR email = ?";
+    $stmt_check = mysqli_prepare($conexion, $sql_check);
+    
+    if ($stmt_check) {
+        mysqli_stmt_bind_param($stmt_check, "ss", $usuario, $email);
+        mysqli_stmt_execute($stmt_check);
+        $resultado = mysqli_stmt_get_result($stmt_check);
+
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            if ($fila['usuario'] === $usuario) {
+                $errores_duplicados['usuario'] = "El nombre de usuario ya está en uso.";
+            }
+            if ($fila['email'] === $email) {
+                $errores_duplicados['email'] = "Este correo electrónico ya está registrado.";
+            }
+        }
+        mysqli_stmt_close($stmt_check);
+    }
+    return $errores_duplicados;
+}
+
+// Insertar un nuevo usuario en la base de datos
+function registrar_usuario($conexion, $usuario, $email, $contrasena_cifrada, $foto_por_defecto = 'avatar_default.jpg') {
+    $sql = "INSERT INTO usuarios(usuario, email, contrasena, foto_perfil) VALUES(?, ?, ?, ?)";
+    $stmt = mysqli_prepare($conexion, $sql);
+
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "ssss", $usuario, $email, $contrasena_cifrada, $foto_por_defecto);
+        mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+    }
+}
+
+// Obtener un usuario por su nombre de usuario (para el login)
+function obtener_usuario_por_login($conexion, $usuario_login) {
+    $sql = "SELECT id, usuario, contrasena, rol, foto_perfil FROM usuarios WHERE usuario = ?";
+    $stmt = mysqli_prepare($conexion, $sql);
+    $usuariobd = null;
+
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "s", $usuario_login);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+        
+        while ($fila = mysqli_fetch_assoc($resultado)) {
+            $usuariobd = $fila;
+        }
+        mysqli_stmt_close($stmt);
+    }
+    return $usuariobd;
+}

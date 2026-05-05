@@ -19,26 +19,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
   // 2. Verificación de duplicados en BD (Solo si la conexión existe)
     if ($conexion) {
-
-        $sql_check = "SELECT usuario, email FROM usuarios WHERE usuario = ? OR email = ?";
-
-        $stmt_check = mysqli_prepare($conexion, $sql_check);
-
-        mysqli_stmt_bind_param($stmt_check, "ss", $datos['usuario'], $datos['email']);
-
-        mysqli_stmt_execute($stmt_check);
-        
-        $resultado = mysqli_stmt_get_result($stmt_check);
-
-        while ($fila = mysqli_fetch_assoc($resultado)) {
-            if ($fila['usuario'] === $datos['usuario']) {
-                $errores['usuario'][] = "El nombre de usuario ya está en uso.";
-            }
-            if ($fila['email'] === $datos['email']) {
-                $errores['email'][] = "Este correo electrónico ya está registrado.";
-            }
+        $errores_duplicados = comprobar_duplicados_registro($conexion, $datos['usuario'], $datos['email']);
+        if (isset($errores_duplicados['usuario'])) {
+            $errores['usuario'][] = $errores_duplicados['usuario'];
         }
-        mysqli_stmt_close($stmt_check);
+        if (isset($errores_duplicados['email'])) {
+            $errores['email'][] = $errores_duplicados['email'];
+        }
     }
 
 
@@ -63,24 +50,9 @@ if ($hayErrores){
     // Encriptar contraseña
     $contrasena_cifrada = password_hash($datos['contraseña'], PASSWORD_DEFAULT);
 
-    // Preparar consulta
-    $stmt = mysqli_prepare($conexion, "INSERT INTO usuarios(usuario,email,contrasena) VALUES(?, ?, ?)");
+    // Inserción en BD
+    registrar_usuario($conexion, $datos['usuario'], $datos['email'], $contrasena_cifrada);
 
-    if ($stmt){
-        mysqli_stmt_bind_param($stmt, "sss", $datos['usuario'], $datos['email'], $contrasena_cifrada);
-
-        if (!mysqli_stmt_execute($stmt)){
-            echo "Error al insertar: " . mysqli_stmt_error($stmt);
-            exit; 
-        }
-    } else {
-        echo "Error al preparar la consulta: " . mysqli_error($conexion);
-        exit;
-    }
-
-    
-
-    mysqli_stmt_close($stmt);
     mysqli_close($conexion);
     header('Location: ../vista/login.php');
     exit;
