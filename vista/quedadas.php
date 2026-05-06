@@ -279,7 +279,7 @@ include '../Partes/header.php';
             </div>
         </div>
     </section>
-    <!-- FIN GRID DE QUEDADAS  -->
+    <!-- FIN DE QUEDADAS  -->
 
 </main>
 
