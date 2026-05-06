@@ -33,7 +33,7 @@
         <nav class="flex flex-col gap-6 p-8 text-lg items-start">
             <a href="../index.php" class="hover:text-[#D2691E]">Inicio</a>
             <a href="../vista/lince.php" class="hover:text-[#D2691E]">El Lince</a>
-            <a href="../vista/quedada.php" class="hover:text-[#D2691E]">Quedadas</a>
+            <a href="../vista/quedadas.php" class="hover:text-[#D2691E]">Quedadas</a>
             <a href="../vista/recompensas.php" class="hover:text-[#D2691E]">Recompensas</a>
             <!-- Botón de donación destacado -->
             <a href="../vista/donaciones.php" class="w-full text-center py-3 bg-amber-500 hover:bg-amber-600 text-white font-bold rounded-xl flex items-center justify-center gap-2 font-sans mt-4 shadow-sm">
@@ -82,7 +82,7 @@
     <ul class="hidden lg:flex items-center justify-center gap-5">
         <li><a href="../index.php" class="text-[#297849] hover:text-[#1a4d2e] hover:font-bold hover:border-b-2 border-[#D2691E] pb-1">Inicio</a></li>
         <li><a href="../vista/lince.php" class="text-[#297849] hover:text-[#1a4d2e] hover:font-bold hover:border-b-2 border-[#D2691E] pb-1">El lince</a></li>
-        <li><a href="../vista/quedada.php" class="text-[#297849] hover:text-[#1a4d2e] hover:font-bold hover:border-b-2 border-[#D2691E] pb-1">Quedadas</a></li>
+        <li><a href="../vista/quedadas.php" class="text-[#297849] hover:text-[#1a4d2e] hover:font-bold hover:border-b-2 border-[#D2691E] pb-1">Quedadas</a></li>
         <li><a href="../vista/recompensas.php" class="text-[#297849] hover:text-[#1a4d2e] hover:font-bold hover:border-b-2 border-[#D2691E] pb-1">Recompensas</a></li>
     </ul>
 
