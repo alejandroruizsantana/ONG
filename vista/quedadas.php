@@ -1,10 +1,12 @@
 <?php 
 /* Incluimos conexión, modelo y header */
-include_once '../conexion/conexion_base_datos.php';            
-include_once '../Modelo/modelo_quedadas.php';   
-
-/* Obtenemos los datos de las quedas con una funcion del modelo */
-$resultadoQuedadas = obtener_resultado_quedadas($conexion);
+// Esta vista debe ser provista por ../Controlador/controlador_quedadas.php
+if (!isset($resultadoQuedadas)) {
+    if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+    $_SESSION['activeTab'] = 'quedadas';
+    header('Location: ../Controlador/controlador_quedadas.php');
+    exit();
+}
 
 include '../Partes/header.php'; 
 ?>

@@ -15,14 +15,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_quedada'])) {
         exit();
     }
 
-   // ... Tu código anterior de seguridad del controlador (POST, sesiones, etc.) ...
+
 
     $id_quedada = intval($_POST['id_quedada']); 
     $id_usuario = $_SESSION['id'];             
 
-    // ... Tu código de seguridad, POST e IDs igual que antes ...
+//Usamos la funcion del modelo para insertar un usuarios en las inscripciones  
 
 $resultado_registro = insertar_inscripcion_usuario($conexion, $id_usuario, $id_quedada);
+
+//Si está todo bien incrementamos una plaza
 
 if ($resultado_registro === true) {
     incrementar_plazas_ocupadas($conexion, $id_quedada);
@@ -33,6 +35,7 @@ if ($resultado_registro === true) {
     header("Location: ../vista/quedadas.php");
     exit();
 } 
+//Si devuelve 'duplicado' mostramos un error de que ya esta inscrito en la quedada
 elseif ($resultado_registro === 'duplicado') {
     // Guardamos el error de duplicado en la sesión
     $_SESSION['mensaje_error'] = "¡Ya estás inscrito en esta quedada! ";
@@ -40,8 +43,9 @@ elseif ($resultado_registro === 'duplicado') {
     header("Location: ../vista/quedadas.php");
     exit();
 } 
+//Si da otro error que no sea de duplicado mostramos otro mensaje de error
 else {
-    // Guardamos un error general en la sesión
+    // Guardamos el error general en la sesión
     $_SESSION['mensaje_error'] = "Hubo un problema al tramitar tu inscripción. Inténtalo de nuevo.";
     
     header("Location: ../vista/quedadas.php");

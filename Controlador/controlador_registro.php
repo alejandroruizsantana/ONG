@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     // Validamos
     $errores = validar($datos);
 
-  // 2. Verificación de duplicados en BD (Solo si la conexión existe)
+  // 2. Verificación de duplicados en BD si la conexión existe 
     if ($conexion) {
         $errores_duplicados = comprobar_duplicados_registro($conexion, $datos['usuario'], $datos['email']);
         if (isset($errores_duplicados['usuario'])) {

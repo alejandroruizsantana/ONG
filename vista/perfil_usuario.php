@@ -1,31 +1,18 @@
 <?php
 
 
-include '../partes/header.php';
-require_once '../conexion/conexion_base_datos.php';
-require_once '../modelo/modelo_usuarios.php';
-
-// Protección de ruta
-if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
-    exit;
+// Esta vista debe ser provista por ../Controlador/controlador_perfil.php
+if (!isset($usuario_datos)) {
+    if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+    header('Location: ../Controlador/controlador_perfil.php');
+    exit();
 }
-
-// Obtener datos frescos del usuario
-$usuario_datos = obtener_usuario_por_id($conexion, $_SESSION['id']);
-
-if (!$usuario_datos) {
-    header("Location: login.php");
-    exit;
-}
-
-// Sincronizar sesión
-$_SESSION['foto_perfil'] = $usuario_datos['foto_perfil'] ?? 'avatar_default.jpg';
-$_SESSION['rol'] = $usuario_datos['rol'];
 
 //Datos ejemplo (Despues hacer en la base de datos)
 $total_quedadas = 3; 
 $total_donado = 25;
+
+include '../partes/header.php';
 ?>
 
 <main class="flex-grow bg-gray-50 pt-24 pb-24">
@@ -48,7 +35,7 @@ $total_donado = 25;
                         </p>
                     </div>
                     <button class="mb-2 bg-white border border-gray-300 px-4 py-2 rounded-xl text-sm font-bold hover:bg-gray-50 transition">
-                        <i class="fa-solid fa-pen-to-square mr-2"></i> <a href="editar_usuario.php">Editar Perfil</a>
+                        <i class="fa-solid fa-pen-to-square mr-2"></i> <a href="../Controlador/controlador_editar_usuario.php">Editar Perfil</a>
                     </button>
                 </div>
             </div>

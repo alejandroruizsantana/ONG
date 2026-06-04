@@ -1,5 +1,18 @@
 <?php 
-session_start(); 
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
+
+// Si ya hay sesión iniciada, redirigir al panel según el rol
+if (isset($_SESSION['usuario'])) {
+    if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin') {
+        header('Location: ../Controlador/controlador_admin.php');
+        exit;
+    }
+    header('Location: ../vista/perfil_usuario.php');
+    exit;
+}
+
 // Resetear intentos para debug
 unset($_SESSION['intentos']);
 // Recuperamos el nombre si existe la cookie

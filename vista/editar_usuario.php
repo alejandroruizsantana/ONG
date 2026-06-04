@@ -1,16 +1,12 @@
 <?php
-include '../partes/header.php';
-require_once '../conexion/conexion_base_datos.php';
-require_once '../modelo/modelo_usuarios.php';
-
-// Si no hay sesión, al login
-if (!isset($_SESSION['usuario'])) {
-    header("Location: login.php");
-    exit;
+// Esta vista debe ser provista por ../Controlador/controlador_editar_usuario.php
+if (!isset($usuario_datos)) {
+    if (session_status() !== PHP_SESSION_ACTIVE) session_start();
+    header('Location: ../Controlador/controlador_editar_usuario.php');
+    exit();
 }
 
-// Obtener datos actuales del usuario
-$usuario_datos = obtener_usuario_por_id($conexion, $_SESSION['id']);
+include '../partes/header.php';
 ?>
 
 <main class="flex-grow bg-gray-50 pt-24 pb-24">

@@ -137,3 +137,34 @@ function obtener_usuario_por_login($conexion, $usuario_login) {
     }
     return $usuariobd;
 }
+
+function eliminar_usuario($conexion, $id_usuario) {
+    $sql = "DELETE FROM usuarios WHERE id = ?";
+    $stmt = mysqli_prepare($conexion, $sql);
+
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "i", $id_usuario);
+        $ejecucion = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $ejecucion;
+    }
+    return false;
+}
+
+function actualizar_usuario_admin($conexion, $id_usuario, $usuario, $email, $rol) {
+    $sql = "UPDATE usuarios SET usuario = ?, email = ?, rol = ? WHERE id = ?";
+    $stmt = mysqli_prepare($conexion, $sql);
+
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "sssi", $usuario, $email, $rol, $id_usuario);
+        $ejecucion = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $ejecucion;
+    }
+    return false;
+}
+
+function obtener_todos_usuarios($conexion) {
+    $sql = "SELECT id, usuario, email, rol FROM usuarios ORDER BY usuario ASC";
+    return mysqli_query($conexion, $sql);
+}
