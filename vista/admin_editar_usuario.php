@@ -58,11 +58,8 @@ include '../Partes/header.php';
                 </div>
 
                 <div class="flex flex-col md:flex-row gap-4">
-                    <button type="submit" class="flex-1 bg-[#1a4d2e] text-white py-3 rounded-2xl font-bold hover:bg-[#143a24] transition">Guardar</button>
-                    <form method="POST" action="../Controlador/controlador_admin.php" class="flex-1">
-                        <input type="hidden" name="tab" value="usuarios">
-                        <button type="submit" class="w-full text-center py-3 rounded-2xl border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">Cancelar</button>
-                    </form>
+                        <button type="submit" class="flex-1 bg-[#1a4d2e] text-white py-3 rounded-2xl font-bold hover:bg-[#143a24] transition">Guardar</button>
+                    <a href="../Controlador/controlador_admin.php" class="flex-1 text-center py-3 rounded-2xl border border-gray-200 text-gray-500 font-bold hover:bg-gray-50 transition">Cancelar</a>
                 </div>
             </form>
         </div>

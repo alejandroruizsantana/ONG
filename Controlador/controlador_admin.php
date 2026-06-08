@@ -1,6 +1,5 @@
 <?php
 
-
 // Iniciamos la sesión para poder leer y escribir variables de sesión
 session_start();
 
@@ -19,8 +18,7 @@ if (!isset($_SESSION['usuario']) || $_SESSION['rol'] !== 'admin') {
 
 // Solo procesamos acciones si el formulario se ha enviado por POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
-    
+
     // Cuando el admin pulsa una pestaña (quedadas / usuarios),
     // guardamos cuál está activa en sesión y recargamos el controlador.
     if (isset($_POST['tab'])) {
@@ -28,31 +26,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: controlador_admin.php");
         exit();
     }
-    
-    
-    // Comprobamos que la acción es 'borrar_quedada' y que nos llega el id de la quedada.
-    if (isset($_POST['accion']) && $_POST['accion'] === 'borrar_quedada' && isset($_POST['id_quedada'])) {
-        // Convertimos el id a entero para evitar inyecciones
-        $id = intval($_POST['id_quedada']);
-        // Primero borramos todas las inscripciones de esa quedada
-        $borradoInscritos = eliminar_inscripciones_quedada($conexion, $id);
-        // Luego cambiamos el estado de la quedada a 'archivada' 
-        $archivoQuedada = cambiar_estado_quedada($conexion, $id, 'archivada');
 
-        // Guardamos en sesión el mensaje de éxito o error para mostrarlo en la vista
-        if ($archivoQuedada) {
+    // eliminamos físicamente la quedada y sus inscripciones de la base de datos
+    if (isset($_POST['accion']) && $_POST['accion'] === 'borrar_quedada' && isset($_POST['id_quedada'])) {
+        $id = intval($_POST['id_quedada']);
+        // primero borramos las inscripciones para no dejar registros huérfanos
+        $borradoInscritos = eliminar_inscripciones_quedada($conexion, $id);
+        // luego eliminamos físicamente la quedada
+        $borradoQuedada = eliminar_quedada($conexion, $id);
+
+        if ($borradoQuedada) {
             $_SESSION['mensaje_exito'] = "Quedada eliminada con éxito.";
         } else {
             $_SESSION['mensaje_error'] = "No se pudo eliminar la quedada.";
         }
 
-        // Volvemos al panel en la pestaña de quedadas
         $_SESSION['activeTab'] = 'quedadas';
         header("Location: controlador_admin.php");
         exit();
     }
 
-    
     // Cuando el admin pulsa "Editar" en un usuario, buscamos sus datos en la BD
     // y cargamos la vista del formulario de edición.
     if (isset($_POST['accion']) && $_POST['accion'] === 'editar_usuario' && isset($_POST['id_usuario'])) {
@@ -72,12 +65,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
-  
+    // eliminamos el usuario, decrementamos sus plazas ocupadas y borramos sus inscripciones
     if (isset($_POST['accion']) && $_POST['accion'] === 'eliminar_usuario' && isset($_POST['id_usuario'])) {
         $id = intval($_POST['id_usuario']);
-        // Primero eliminamos todas las inscripciones del usuario (para no dejar huérfanos)
+
+        // decrementamos las plazas de cada quedada en la que estaba inscrito
+        $inscripciones = mysqli_query($conexion, "SELECT id_quedada FROM inscripciones WHERE id_usuario = $id");
+        if ($inscripciones) {
+            while ($fila = mysqli_fetch_assoc($inscripciones)) {
+                decrementar_plazas_ocupadas($conexion, $fila['id_quedada']);
+            }
+        }
+
+        // eliminamos las inscripciones y el usuario de la base de datos
         $borradoInscripciones = eliminar_inscripciones_usuario($conexion, $id);
-        // Luego eliminamos el usuario de la base de datos
         $borradoUsuario = eliminar_usuario($conexion, $id);
 
         if ($borradoUsuario) {
@@ -86,13 +87,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['mensaje_error'] = "No se pudo eliminar el usuario.";
         }
 
-        // Volvemos al panel en la pestaña de usuarios
         $_SESSION['activeTab'] = 'usuarios';
         header("Location: controlador_admin.php");
         exit();
     }
 
-   
+    // guardamos los cambios del formulario de edición en la base de datos
     if (isset($_POST['accion']) && $_POST['accion'] === 'guardar_usuario' && isset($_POST['id_usuario'])) {
         $id = intval($_POST['id_usuario']);
         // Recogemos los nuevos datos del formulario y les quitamos espacios con trim()
@@ -109,38 +109,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['mensaje_error'] = "No se pudo actualizar el usuario.";
         }
 
-        // Volvemos al panel en la pestaña de usuarios
         $_SESSION['activeTab'] = 'usuarios';
         header("Location: controlador_admin.php");
         exit();
     }
 }
 
-// Preparamos los datos para usarlos en la vista
-
-// Por defecto mostramos la pestaña de quedadas
+// pestaña activa por defecto: quedadas
 $activeTab = 'quedadas';
 if (isset($_SESSION['activeTab'])) {
     // Si ya había una pestaña guardada en sesión, la usamos
     $activeTab = $_SESSION['activeTab'];
-    
 }
 
-// Validación extra: si el valor de activeTab no es uno de los dos permitidos, forzamos 'quedadas'
+// si el valor no es válido forzamos quedadas
 if ($activeTab !== 'usuarios' && $activeTab !== 'quedadas') {
     $activeTab = 'quedadas';
 }
 
-// Cargamos los datos de ambas pestañas para que la vista los tenga disponibles
-$resultadoAdmin = obtener_quedadas_admin($conexion);   // Lista de todas las quedadas (incluidas archivadas)
-$usuariosAdmin = obtener_todos_usuarios($conexion);    // Lista de todos los usuarios registrados
+// cargamos los datos de quedadas y usuarios para la vista
+$resultadoAdmin = obtener_quedadas_admin($conexion);
+$usuariosAdmin = obtener_todos_usuarios($conexion);
 
-// Obtenemos las estadísticas del panel (totales de quedadas, usuarios y plazas ocupadas)
+// obtenemos los totales para las estadísticas del panel
 $estadisticas = obtener_estadisticas_admin($conexion);
 $totalQuedadasCount  = $estadisticas['total_quedadas'];
 $totalUsuariosCount  = $estadisticas['total_usuarios'];
 $totalPlazasOcupadas = $estadisticas['total_plazas_ocupadas'];
 
-// Cargamos la vista del panel de administración con todos los datos ya preparados
+// reiniciamos el puntero del resultado para que la vista pueda recorrerlo desde el inicio
+if ($resultadoAdmin) {
+    mysqli_data_seek($resultadoAdmin, 0);
+}
+
+// cargamos la vista del panel con todos los datos preparados
 include_once '../vista/admin_panel.php';
 exit();

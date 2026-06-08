@@ -12,7 +12,7 @@ function obtener_estadisticas_admin($conexion) {
 
     // contamos el total de quedadas y sumamos todas las plazas ocupadas de una sola consulta
     // coalesce evita que el sum devuelva null si no hay registros
-    $resQ = mysqli_query($conexion, "SELECT COUNT(id) AS cnt, COALESCE(SUM(plazas_ocupadas),0) AS suma FROM quedadas");
+    $resQ = mysqli_query($conexion, "SELECT COUNT(id) AS cnt, COALESCE(SUM(plazas_ocupadas),0) AS suma FROM quedadas WHERE estado = 'disponible'");
     if ($resQ) {
         $r = mysqli_fetch_assoc($resQ);
         $metrics['total_quedadas'] = intval($r['cnt']);

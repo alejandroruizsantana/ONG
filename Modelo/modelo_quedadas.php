@@ -187,9 +187,9 @@ function actualizar_quedada($conexion, $id_quedada, $titulo, $descripcion, $fech
     return false;
 }
 
-// devuelve todas las quedadas para el panel admin, incluidas las archivadas
+// devuelve solo las quedadas disponibles para el panel admin
 function obtener_quedadas_admin($conexion) {
-    $sql = "SELECT * FROM quedadas ORDER BY fecha ASC";
+    $sql = "SELECT * FROM quedadas WHERE estado = 'disponible' ORDER BY fecha ASC";
     return mysqli_query($conexion, $sql);
 }
 
