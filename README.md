@@ -1,19 +1,26 @@
-# 🐾 ONG - Salvemos al Lince Ibérico
+# 🐾 El Latido del Lince — ONG de Conservación del Lince Ibérico
 
-Este proyecto es una plataforma web dedicada a la conservación del lince ibérico, proporcionando información, gestionando donaciones y organizando eventos comunitarios para proteger esta especie emblemática y su hábitat.
+Plataforma web completa para la gestión interna de una ONG dedicada a la conservación del Lince Ibérico (*Lynx pardinus*). Permite coordinar eventos de voluntariado, gestionar donaciones y administrar usuarios, todo desde una interfaz moderna y responsiva.
+
+## ✅ Estado del Proyecto
+
+**Proyecto finalizado.** Todas las funcionalidades están implementadas y operativas.
 
 ## 🚀 Características
 
-- **Página de Inicio Dinámica**: Presentación de la misión y últimas noticias.
-- **Sistema de Usuarios**: Registro y validación de usuarios (en desarrollo).
-- **Gestión de Donaciones**: Espacio dedicado para que los usuarios colaboren económicamente.
-- **Quedadas y Voluntariado**: Organización de eventos para limpieza de hábitats y educación ambiental.
-- **Información Detallada**: Sección específica sobre la vida y cuidados del lince.
+- **Página de inicio**: Presentación de la misión de la ONG, información sobre el lince y llamada a la acción.
+- **Sistema de usuarios**: Registro con validación, inicio de sesión seguro, roles (admin / usuario) y edición de perfil con foto.
+- **Gestión de donaciones**: Donaciones identificadas y anónimas con seguimiento del objetivo de recaudación activo.
+- **Quedadas y voluntariado**: Listado de eventos disponibles, inscripción/baja con control automático de aforo.
+- **Panel de administración**: Gestión completa de usuarios y quedadas con estadísticas globales.
+- **Página del lince**: Sección informativa sobre la biología, amenazas y acciones de conservación de la especie.
+- **Sistema de recompensas**: Medallas por nivel de donación (bronce, plata y oro).
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Frontend**: HTML5, CSS3, Tailwind CSS.
-- **Backend**: PHP (Lógica del lado del servidor).
+- **Frontend**: HTML5, Tailwind CSS, JavaScript (vanilla).
+- **Backend**: PHP 8.2 — arquitectura MVC nativa sin frameworks.
+- **Base de datos**: MariaDB 10.4 (MySQL) con MySQLi y PreparedStatements.
 - **Iconos**: FontAwesome 6.
 - **Tipografía**: Google Fonts (Inter, Playfair Display).
 
@@ -21,24 +28,32 @@ Este proyecto es una plataforma web dedicada a la conservación del lince ibéri
 
 ```text
 ONG/
-├── Controlador/    # Lógica de negocio y controladores (Ej: Registro)
-├── Modelo/         # Modelos de datos y funciones de validación
-├── Vista/          # Páginas principales (Donaciones, Quedadas, Login, etc.)
-├── Partes/         # Componentes reutilizables (Header, Footer)
-├── Assets/         # Imágenes, estilos y recursos multimedia
-└── index.php       # Punto de entrada principal
+├── Controlador/          # Lógica de negocio: login, registro, inscripciones, donaciones, admin...
+├── Modelo/               # Acceso a datos: consultas SQL con PreparedStatements
+├── vista/                # Vistas HTML/PHP: todas las páginas de la aplicación
+├── Partes/               # Componentes reutilizables: header.php y footer.php
+├── assets/               # Imágenes, recursos multimedia
+├── conexion/             # Inicialización de la conexión MySQLi
+└── index.php             # Página principal / punto de entrada
 ```
 
-## ⚙️ Instalación y Configuración
+## ⚙️ Instalación
 
-1. **Requisitos**: Tener instalado [XAMPP](https://www.apachefriends.org/es/index.html).
-2. **Ubicación**: Clona o descarga este repositorio en `C:\xampp\htdocs\php\ONG`.
-3. **Servidor**: Inicia los módulos **Apache** y (opcionalmente en el futuro) **MySQL** desde el Panel de Control de XAMPP.
-4. **Acceso**: Abre tu navegador y navega a `http://localhost/php/ONG/`.
+1. **Requisitos**: Tener instalado [XAMPP](https://www.apachefriends.org/es/index.html) con PHP 8.2 y MariaDB 10.4.
+2. **Ubicación**: Clona o descarga el repositorio en `C:\xampp\htdocs\ONG`.
+3. **Base de datos**: Abre phpMyAdmin, crea una base de datos llamada `bdong` e importa el archivo `bdong.sql` incluido en el repositorio.
+4. **Conexión**: Verifica que `conexion/conexion_base_datos.php` apunta a tu servidor local.
+5. **Servidor**: Inicia **Apache** y **MySQL** desde el Panel de Control de XAMPP.
+6. **Acceso**: Abre el navegador y navega a `http://localhost/ONG/`.
 
-## 🤝 Contribuir
+## 🔐 Seguridad implementada
 
-¡Las contribuciones son bienvenidas! Si tienes ideas para mejorar la plataforma o quieres añadir más contenido sobre el lince ibérico, no dudes en abrir un Pull Request.
+- Contraseñas cifradas con bcrypt (`password_hash` / `password_verify`).
+- Protección contra SQL Injection mediante PreparedStatements.
+- Protección contra XSS mediante `htmlspecialchars()`.
+- Control de acceso por roles con verificación de sesión en cada controlador.
+- Bloqueo tras 3 intentos fallidos de login.
 
 ---
+
 *Protegiendo el latido del bosque.* 🌲🐾
