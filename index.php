@@ -3,11 +3,13 @@
 include 'partes/header.php';
 ?>
 
+<!-- sección hero: imagen de fondo con el lince y llamada a la acción principal -->
 <section class="relative w-full h-[800px] flex items-center justify-center overflow-hidden">
     <img src="../assets/imagenes/lince_inicio1.jpg" 
          alt="Lince Ibérico" 
          class="absolute inset-0 w-full h-full object-cover">
 
+    <!-- capa oscura verde sobre la imagen para mejorar la legibilidad del texto -->
     <div class="absolute inset-0 bg-[#1a4d2e]/60 "></div>
 
     <div class="relative z-10 text-center px-4 max-w-3xl">
@@ -19,6 +21,7 @@ include 'partes/header.php';
             Cada acción cuenta para asegurar el futuro de nuestra fauna más emblemática.
         </p>
 
+        <!-- botones de acción: donación y ver quedadas -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="../vista/donaciones.php" class="bg-[#D2691E] text-white px-8 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2 shadow-xl">
                 <span>&#9825;</span> Hacer una donación
@@ -35,6 +38,7 @@ include 'partes/header.php';
     </div>
 </section>
 
+<!-- sección de misión: cuatro pilares de actuación de la ong -->
 <section class="bg-[#f8f7f4] py-20 px-4">
     <div class="max-w-6xl mx-auto">
         <div class="text-center mb-16">
@@ -49,7 +53,10 @@ include 'partes/header.php';
             </p>
         </div>
 
+        <!-- grid de tarjetas con los cuatro pilares -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+            <!-- tarjeta: conservación activa -->
             <div class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-shadow text-center flex flex-col items-center">
                 <div class="w-16 h-16 bg-[#D2691E] rounded-2xl flex items-center justify-center text-white text-3xl mb-6 shadow-lg shadow-orange-200">
                     <i class="fa-solid fa-heart"></i>
@@ -60,6 +67,7 @@ include 'partes/header.php';
                 </p>
             </div>
 
+            <!-- tarjeta: limpieza del hábitat -->
             <div class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-shadow text-center flex flex-col items-center">
                 <div class="w-16 h-16 bg-[#D2691E] rounded-2xl flex items-center justify-center text-white text-3xl mb-6 shadow-lg shadow-orange-200">
                     <i class="fa-solid fa-tree"></i>
@@ -70,6 +78,7 @@ include 'partes/header.php';
                 </p>
             </div>
 
+            <!-- tarjeta: comunidad unida -->
             <div class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-shadow text-center flex flex-col items-center">
                 <div class="w-16 h-16 bg-[#D2691E] rounded-2xl flex items-center justify-center text-white text-3xl mb-6 shadow-lg shadow-orange-200">
                     <i class="fa-solid fa-users"></i>
@@ -80,6 +89,7 @@ include 'partes/header.php';
                 </p>
             </div>
 
+            <!-- tarjeta: educación ambiental -->
             <div class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-shadow text-center flex flex-col items-center">
                 <div class="w-16 h-16 bg-[#D2691E] rounded-2xl flex items-center justify-center text-white text-3xl mb-6 shadow-lg shadow-orange-200">
                     <i class="fa-solid fa-shield-halved"></i>
@@ -93,6 +103,7 @@ include 'partes/header.php';
     </div>
 </section>
 
+<!-- sección de logros: tres artículos con impacto real conseguido -->
 <section class="bg-[#f4f1ea] py-20 px-4">
     <div class="max-w-6xl mx-auto">
         
@@ -110,6 +121,7 @@ include 'partes/header.php';
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             
+            <!-- artículo 1: consolidación población -->
             <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group">
                 <div class="relative h-56 overflow-hidden">
                     <img src="../assets/imagenes/cachorros_inicio.jpg" alt="Recuperación" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -127,6 +139,7 @@ include 'partes/header.php';
                 </div>
             </article>
 
+            <!-- artículo 2: limpieza de territorio -->
             <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group">
                 <div class="relative h-56 overflow-hidden">
                     <img src="../assets/imagenes/sierradeandujar.jpg" alt="Espacio Seguro" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -144,6 +157,7 @@ include 'partes/header.php';
                 </div>
             </article>
 
+            <!-- artículo 3: concienciación social (imagen externa de unsplash) -->
             <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group">
                 <div class="relative h-56 overflow-hidden">
                     <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80" alt="Concienciación" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
@@ -165,6 +179,7 @@ include 'partes/header.php';
     </div>
 </section>
 
+<!-- sección de llamada a la acción: cómo colaborar con la ong -->
 <section class="bg-white py-20 px-4">
     <div class="max-w-6xl mx-auto">
         
@@ -182,6 +197,7 @@ include 'partes/header.php';
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             
+            <!-- tarjeta: apuntarse a una quedada -->
             <div class="bg-[#f8f7f4] p-8 rounded-3xl border border-gray-100 flex flex-col justify-between items-start transition-all hover:shadow-md">
                 <div>
                     <div class="w-12 h-12 rounded-xl bg-[#1a4d2e] text-white flex items-center justify-center text-xl mb-6">
@@ -197,6 +213,7 @@ include 'partes/header.php';
                 </a>
             </div>
 
+            <!-- tarjeta: realizar una donación -->
             <div class="bg-[#f8f7f4] p-8 rounded-3xl border border-gray-100 flex flex-col justify-between items-start transition-all hover:shadow-md">
                 <div>
                     <div class="w-12 h-12 rounded-xl bg-[#D2691E] text-white flex items-center justify-center text-xl mb-6">
