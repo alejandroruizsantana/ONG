@@ -14,8 +14,7 @@ if (isset($_SESSION['usuario'])) {
     exit;
 }
 
-// Resetear intentos para debug.
-unset($_SESSION['intentos']);
+
 // Recuperamos el nombre si existe la cookie para mostrarlo en el formulario.
 $usuario_recordado = $_COOKIE['recordar_usuario'] ?? '';
 ?>
