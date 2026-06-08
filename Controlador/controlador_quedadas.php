@@ -1,4 +1,5 @@
 <?php
+// Controlador de quedadas: carga las quedadas disponibles y prepara la vista de quedadas.
 session_start();
 include_once '../conexion/conexion_base_datos.php';
 include_once '../Modelo/modelo_quedadas.php';

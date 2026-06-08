@@ -1,4 +1,5 @@
 <?php
+// Página de edición de usuario desde el panel admin. Permite al admin actualizar datos de otro usuario.
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
@@ -18,6 +19,7 @@ include '../Partes/header.php';
 ?>
 
 <main class="flex-grow bg-gray-50 pt-24 pb-24">
+    <!-- Página de edición de usuario en el panel admin -->
     <div class="max-w-3xl mx-auto px-4">
         <div class="mb-8">
             <form method="POST" action="../Controlador/controlador_admin.php" class="inline">
@@ -31,6 +33,7 @@ include '../Partes/header.php';
             <p class="text-gray-500 text-sm">Modifica los datos del usuario seleccionado.</p>
         </div>
 
+        <!-- Formulario para modificar datos del usuario seleccionado -->
         <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
             <form action="../Controlador/controlador_admin.php" method="POST" class="p-8 space-y-6">
                 <input type="hidden" name="accion" value="guardar_usuario">

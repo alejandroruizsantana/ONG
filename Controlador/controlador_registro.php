@@ -1,4 +1,5 @@
 <?php
+// Controlador de registro: recibe el formulario, valida datos y crea cuenta en la base de datos.
 require_once '../modelo/modelo_usuarios.php';
 require_once '../conexion/conexion_base_datos.php';
 

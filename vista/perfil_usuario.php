@@ -1,5 +1,5 @@
 <?php
-
+// Página de perfil de usuario. Muestra información personal, próximas quedadas y medallas.
 
 // Esta vista debe ser provista por ../Controlador/controlador_perfil.php
 if (!isset($usuario_datos)) {
@@ -8,9 +8,10 @@ if (!isset($usuario_datos)) {
     exit();
 }
 
-//Datos ejemplo (Despues hacer en la base de datos)
-$total_quedadas = 3; 
-$total_donado = 25;
+// Si no se reciben datos, inicializamos valores para evitar errores de vista.
+$total_quedadas_pendientes = $total_quedadas_pendientes ?? 0;
+$total_donado = $total_donado ?? 0;
+$proximas_quedadas = $proximas_quedadas ?? [];
 
 include '../partes/header.php';
 ?>
@@ -41,6 +42,7 @@ include '../partes/header.php';
             </div>
         </div>
 
+        <!-- Diseño principal de perfil: izquierda con estadísticas y derechas con contenido adicional -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
             
             <!-- COLUMNA IZQUIERDA: RESUMEN DE LOGROS -->
@@ -52,13 +54,60 @@ include '../partes/header.php';
                     
                     <div class="grid grid-cols-1 gap-4">
                         <div class="p-4 bg-orange-50 rounded-2xl border border-orange-100">
-                            <p class="text-xs text-orange-600 font-bold uppercase mb-1">Quedadas Asistidas</p>
-                            <p class="text-3xl font-bold text-[#D2691E]"><?php echo $total_quedadas; ?></p>
+                            <p class="text-xs text-orange-600 font-bold uppercase mb-1">Quedadas Pendientes</p>
+                            <p class="text-3xl font-bold text-[#D2691E]"><?php echo $total_quedadas_pendientes; ?></p>
                         </div>
                         
-                        <div class="p-4 bg-green-50 rounded-2xl border border-green-100">
+                                <div class="p-4 bg-green-50 rounded-2xl border border-green-100">
                             <p class="text-xs text-green-600 font-bold uppercase mb-1">Total Donaciones</p>
                             <p class="text-3xl font-bold text-[#1a4d2e]"><?php echo $total_donado; ?>€</p>
+                        </div>
+                    </div>
+                </div>
+
+                <?php
+                    // Calculamos qué medallas ha alcanzado el usuario según donaciones acumuladas.
+                    $nivel_bronce = 10;
+                    $nivel_plata = 50;
+                    $nivel_oro = 100;
+                    $bronce_completado = $total_donado >= $nivel_bronce;
+                    $plata_completado = $total_donado >= $nivel_plata;
+                    $oro_completado = $total_donado >= $nivel_oro;
+                ?>
+
+                <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100">
+                    <h4 class="font-bold text-[#1a4d2e] mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-medal text-[#D2691E]"></i> Mis Medallas
+                    </h4>
+                    <div class="space-y-4">
+                        <div class="p-4 rounded-3xl border <?php echo $bronce_completado ? 'border-emerald-300 bg-emerald-50' : 'border-gray-200 bg-white'; ?> flex items-center justify-between">
+                            <div>
+                                <p class="font-semibold text-sm text-[#1a4d2e]">Bronce</p>
+                                <p class="text-xs text-gray-500">Desde 10€</p>
+                            </div>
+                            <?php if ($bronce_completado): ?>
+                                <span class="text-emerald-700 font-bold">✔</span>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="p-4 rounded-3xl border <?php echo $plata_completado ? 'border-emerald-300 bg-emerald-50' : 'border-gray-200 bg-white'; ?> flex items-center justify-between">
+                            <div>
+                                <p class="font-semibold text-sm text-[#1a4d2e]">Plata</p>
+                                <p class="text-xs text-gray-500">Desde 50€</p>
+                            </div>
+                            <?php if ($plata_completado): ?>
+                                <span class="text-emerald-700 font-bold">✔</span>
+                            <?php endif; ?>
+                        </div>
+
+                        <div class="p-4 rounded-3xl border <?php echo $oro_completado ? 'border-emerald-300 bg-emerald-50' : 'border-gray-200 bg-white'; ?> flex items-center justify-between">
+                            <div>
+                                <p class="font-semibold text-sm text-[#1a4d2e]">Oro</p>
+                                <p class="text-xs text-gray-500">Desde 100€</p>
+                            </div>
+                            <?php if ($oro_completado): ?>
+                                <span class="text-emerald-700 font-bold">✔</span>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -79,12 +128,29 @@ include '../partes/header.php';
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-gray-100">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-xl font-serif font-bold text-[#1a4d2e]">Próximas Quedadas</h3>
-                        <a href="quedada.php" class="text-xs font-bold text-[#D2691E] uppercase hover:underline">Buscar más</a>
+                        <a href="../vista/quedadas.php" class="text-xs font-bold text-[#D2691E] uppercase hover:underline">Buscar más</a>
                     </div>
 
-                    <div class="border-2 border-dashed border-gray-100 rounded-2xl py-8 text-center">
-                        <p class="text-gray-400 text-sm">No tienes inscripciones activas actualmente.</p>
-                    </div>
+                    <?php if (!empty($proximas_quedadas)): ?>
+                        <div class="space-y-4">
+                            <?php foreach ($proximas_quedadas as $quedada): ?>
+                                <div class="p-4 bg-slate-50 rounded-3xl border border-gray-100 text-left">
+                                    <h4 class="font-semibold text-[#1a4d2e] mb-2"><?php echo htmlspecialchars($quedada['titulo']); ?></h4>
+                                    <p class="text-sm text-gray-500 mb-2">
+                                        <?php echo htmlspecialchars($quedada['fecha']); ?> · <?php echo htmlspecialchars($quedada['hora_inicio']); ?> - <?php echo htmlspecialchars($quedada['hora_fin']); ?>
+                                    </p>
+                                    <p class="text-sm text-gray-600 mb-3">
+                                        <?php echo htmlspecialchars($quedada['ubicacion']); ?>, <?php echo htmlspecialchars($quedada['provincia']); ?>
+                                    </p>
+                                    <p class="text-sm text-gray-500"><?php echo htmlspecialchars($quedada['descripcion']); ?></p>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php else: ?>
+                        <div class="border-2 border-dashed border-gray-100 rounded-2xl py-8 text-center">
+                            <p class="text-gray-400 text-sm">No tienes inscripciones activas actualmente.</p>
+                        </div>
+                    <?php endif; ?>
                 </div>
 
             </div> <!-- Fin col-2 -->

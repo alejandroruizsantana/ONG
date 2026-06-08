@@ -1,9 +1,10 @@
 <?php 
+// Página de login. Gestiona el inicio de sesión del usuario con credenciales.
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-// Si ya hay sesión iniciada, redirigir al panel según el rol
+// Si ya hay sesión iniciada, redirigimos al usuario al panel correspondiente.
 if (isset($_SESSION['usuario'])) {
     if (isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin') {
         header('Location: ../Controlador/controlador_admin.php');
@@ -13,9 +14,9 @@ if (isset($_SESSION['usuario'])) {
     exit;
 }
 
-// Resetear intentos para debug
+// Resetear intentos para debug.
 unset($_SESSION['intentos']);
-// Recuperamos el nombre si existe la cookie
+// Recuperamos el nombre si existe la cookie para mostrarlo en el formulario.
 $usuario_recordado = $_COOKIE['recordar_usuario'] ?? '';
 ?>
 <!DOCTYPE html>
@@ -28,6 +29,7 @@ $usuario_recordado = $_COOKIE['recordar_usuario'] ?? '';
     <title>Login | La Manada</title>
 </head>
 <body>
+    <!-- Página de login: estructura principal con fondo y formulario a la derecha -->
     <section class="min-h-screen flex items-stretch text-white">
         <div class="lg:flex w-1/2 hidden bg-no-repeat bg-cover bg-center relative items-center justify-center" 
              style="background-image: url('../assets/imagenes/logo.png');">
@@ -53,9 +55,8 @@ $usuario_recordado = $_COOKIE['recordar_usuario'] ?? '';
                     </div>
                     <?php unset($_SESSION['errores_login']); ?>
                 <?php endif; ?>
-              
+                <!-- Formulario de inicio de sesión -->
                 <form action="../Controlador/controlador_login.php" method="POST" class="sm:w-2/3 w-full px-4 lg:px-0 mx-auto">
-                    
                     <div class="pb-2 pt-4">
                         <input type="text" name="usuario" id="usuario" 
                                value="<?= $usuario_recordado ?>"

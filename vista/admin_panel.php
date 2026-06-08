@@ -1,11 +1,8 @@
 <?php
-// Esta vista espera que `Controlador/controlador_admin.php` prepare las variables:
-// $resultadoAdmin, $usuariosAdmin, $activeTab, $totalQuedadasCount, $totalUsuariosCount, $totalPlazasOcupadas
-// Esta vista debe ser provista por `Controlador/controlador_admin.php`.
-// Si se accede directamente sin que el controlador prepare los datos, redirigimos a él.
+// si las variables del controlador no están disponibles redirigimos al controlador para que las prepare
 if (!isset($resultadoAdmin) || !isset($totalQuedadasCount)) {
     if (session_status() !== PHP_SESSION_ACTIVE) session_start();
-    // mantener la pestaña solicitada (si viene por POST) o usar la por defecto
+    // guardamos la pestaña activa en sesión si viene por post, si no ponemos quedadas por defecto
     if (isset($_POST['tab'])) {
         $_SESSION['activeTab'] = $_POST['tab'];
     } elseif (!isset($_SESSION['activeTab'])) {
@@ -21,19 +18,23 @@ include '../Partes/header.php';
 <main class="flex-grow bg-[#f8f7f4] py-20">
     <div class="max-w-7xl mx-auto px-4">
         
+        <!-- encabezado del panel con título y botón para crear nueva quedada -->
         <div class="flex justify-between items-center mb-12">
             <div>
                 <h1 class="text-4xl font-serif font-bold text-[#1a4d2e]">Panel de Administración</h1>
                 <p class="text-gray-500 mt-2">Gestión de voluntarios y control de aforo de las quedadas.</p>
             </div>
-            <a href="../vista/crear_quedada.php" class="bg-[#1a4d2e] text-white px-6 py-3 rounded-xl font-bold hover:bg-[#143d24] transition-colors">
+            <a href="../Controlador/controlador_crear_quedada.php" class="bg-[#1a4d2e] text-white px-6 py-3 rounded-xl font-bold hover:bg-[#143d24] transition-colors">
                 + Nueva Quedada
             </a>
         </div>
 
-        <?php // Las métricas y datos son provistas por el controlador (Controlador/controlador_admin.php) ?>
+        <!-- tarjetas de estadísticas: los datos vienen del controlador -->
 
+        <!-- tarjetas con el total de quedadas, usuarios y plazas ocupadas -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+
+            <!-- tarjeta de quedadas -->
             <div class="bg-white rounded-2xl shadow-sm p-6 flex items-center gap-4 border border-gray-100">
                 <div class="w-12 h-12 rounded-lg bg-[#D2691E] flex items-center justify-center text-white text-xl font-bold">Q</div>
                 <div>
@@ -43,6 +44,7 @@ include '../Partes/header.php';
                 </div>
             </div>
 
+            <!-- tarjeta de usuarios -->
             <div class="bg-white rounded-2xl shadow-sm p-6 flex items-center gap-4 border border-gray-100">
                 <div class="w-12 h-12 rounded-lg bg-[#1a4d2e] flex items-center justify-center text-white text-xl font-bold">U</div>
                 <div>
@@ -52,6 +54,7 @@ include '../Partes/header.php';
                 </div>
             </div>
 
+            <!-- tarjeta de plazas ocupadas -->
             <div class="bg-white rounded-2xl shadow-sm p-6 flex items-center gap-4 border border-gray-100">
                 <div class="w-12 h-12 rounded-lg bg-[#297849] flex items-center justify-center text-white text-xl font-bold">P</div>
                 <div>
@@ -62,7 +65,7 @@ include '../Partes/header.php';
             </div>
         </div>
 
-        <!-- Controles superiores (creación de quedada ya disponible arriba) -->
+        <!-- mensajes de éxito o error guardados en sesión por el controlador -->
 
         <?php if (isset($_SESSION['mensaje_exito'])): ?>
             <div class="mb-8 bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-xl shadow-sm flex items-center gap-3">
@@ -78,11 +81,14 @@ include '../Partes/header.php';
             </div>
         <?php endif; ?>
 
+        <!-- botones de pestaña: envían un post al controlador para cambiar la pestaña activa -->
         <div class="flex flex-wrap gap-3 mb-8">
+            <!-- pestaña de quedadas -->
             <form method="POST" action="../Controlador/controlador_admin.php" class="inline">
                 <input type="hidden" name="tab" value="quedadas">
                 <button type="submit" class="px-5 py-3 rounded-full font-bold transition-colors <?= $activeTab === 'quedadas' ? 'bg-[#1a4d2e] text-white' : 'bg-white text-[#1a4d2e] border border-gray-200 hover:bg-[#1a4d2e] hover:text-white' ?>">Gestionar Quedadas</button>
             </form>
+            <!-- pestaña de usuarios -->
             <form method="POST" action="../Controlador/controlador_admin.php" class="inline">
                 <input type="hidden" name="tab" value="usuarios">
                 <button type="submit" class="px-5 py-3 rounded-full font-bold transition-colors <?= $activeTab === 'usuarios' ? 'bg-[#1a4d2e] text-white' : 'bg-white text-[#1a4d2e] border border-gray-200 hover:bg-[#1a4d2e] hover:text-white' ?>">Gestionar Usuarios</button>
@@ -90,6 +96,7 @@ include '../Partes/header.php';
         </div>
 
         <?php if ($activeTab === 'quedadas'): ?>
+            <!-- tabla de quedadas: muestra título, fecha, ocupación y acciones de editar/archivar -->
             <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
                 <div class="overflow-x-auto">
                 <table class="w-full text-left min-w-[720px]">
@@ -104,9 +111,11 @@ include '../Partes/header.php';
                     <tbody class="divide-y divide-gray-50 bg-white">
                         <?php if ($resultadoAdmin && mysqli_num_rows($resultadoAdmin) > 0): 
                             while ($q = mysqli_fetch_assoc($resultadoAdmin)): 
+                                // calculamos el porcentaje de ocupación para la barra de progreso
                                 $porcentaje = ($q['plazas_totales'] > 0) ? round(($q['plazas_ocupadas'] / $q['plazas_totales']) * 100) : 0;
-                    ?>
+                        ?>
                         <tr class="hover:bg-gray-50/50 transition-colors">
+                            <!-- columna con título, descripción recortada y provincia -->
                             <td class="p-4 md:p-6 align-top">
                                 <div class="font-bold text-[#1a4d2e] text-lg"><?php echo htmlspecialchars($q['titulo']); ?></div>
                                 <div class="text-gray-500 text-sm mt-1"><?php echo htmlspecialchars(substr($q['descripcion'] ?? '', 0, 100)); ?><?php echo (strlen($q['descripcion'] ?? '')>100) ? '...' : ''; ?></div>
@@ -115,23 +124,32 @@ include '../Partes/header.php';
                                     <span><?php echo htmlspecialchars($q['provincia']); ?></span>
                                 </div>
                             </td>
+                            <!-- columna con fecha y hora de inicio -->
                             <td class="p-4 md:p-6 text-sm text-gray-600 align-top">
                                 <div class="font-medium"><?php echo date("d M Y", strtotime($q['fecha'])); ?></div>
                                 <div class="text-gray-400"><?php echo date("H:i", strtotime($q['hora_inicio'])); ?>h</div>
                             </td>
+                            <!-- columna con plazas ocupadas y barra de progreso -->
                             <td class="p-4 md:p-6 align-top">
                                 <div class="flex items-center gap-3">
                                     <div class="flex-1">
                                         <div class="text-xs text-gray-400">Ocupación</div>
                                         <div class="text-sm font-semibold text-[#1a4d2e]"><?php echo $q['plazas_ocupadas']; ?> / <?php echo $q['plazas_totales']; ?></div>
                                     </div>
+                                    <!-- barra de progreso con el porcentaje calculado arriba -->
                                     <div class="w-32 bg-gray-100 h-2 rounded-full overflow-hidden">
                                         <div class="bg-[#D2691E] h-full" style="width: <?php echo $porcentaje; ?>%"></div>
                                     </div>
                                 </div>
                             </td>
+                            <!-- columna con botones de editar y archivar la quedada -->
                             <td class="p-4 md:p-6 text-right align-top">
                                 <div class="flex justify-end items-center gap-3">
+                                    <!-- botón de editar: enlaza al controlador de edición pasando el id -->
+                                    <a href="../Controlador/controlador_editar_quedada.php?id=<?php echo $q['id']; ?>" class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-[#1a4d2e] text-white hover:bg-[#143a24] transition" title="Editar Quedada">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <!-- formulario de archivado: pide confirmación antes de enviar -->
                                     <form action="../Controlador/controlador_admin.php" method="POST" onsubmit="return confirm('¿Seguro que quieres eliminar esta quedada? Esta acción no se puede deshacer.');">
                                         <input type="hidden" name="accion" value="borrar_quedada">
                                         <input type="hidden" name="id_quedada" value="<?php echo $q['id']; ?>">
@@ -143,6 +161,7 @@ include '../Partes/header.php';
                             </td>
                         </tr>
                     <?php endwhile; else: ?>
+                        <!-- mensaje si no hay quedadas creadas todavía -->
                         <tr>
                             <td colspan="4" class="p-10 text-center text-gray-400 italic">No hay eventos creados todavía.</td>
                         </tr>
@@ -152,6 +171,7 @@ include '../Partes/header.php';
         </div>
 
         <?php else: ?>
+            <!-- tabla de usuarios: muestra id, nombre, email, rol y acciones de editar/eliminar -->
             <div class="bg-white rounded-3xl shadow-lg border border-gray-100 overflow-hidden">
                 <div class="overflow-x-auto">
                 <table class="w-full text-left min-w-[720px]">
@@ -171,6 +191,7 @@ include '../Partes/header.php';
                                     <td class="p-6 text-sm text-gray-600"><?php echo $usuario['id']; ?></td>
                                     <td class="p-6 text-sm text-gray-600"><?php echo htmlspecialchars($usuario['usuario']); ?></td>
                                     <td class="p-6 text-sm text-gray-600"><?php echo htmlspecialchars($usuario['email']); ?></td>
+                                    <!-- badge de rol: azul para admin, verde para usuario normal -->
                                     <td class="p-6 text-sm align-middle">
                                         <?php $role = htmlspecialchars($usuario['rol']); ?>
                                         <?php if ($role === 'admin'): ?>
@@ -179,8 +200,10 @@ include '../Partes/header.php';
                                             <span class="inline-block px-3 py-1 text-xs font-semibold rounded-full bg-green-100 text-green-700">Usuario</span>
                                         <?php endif; ?>
                                     </td>
+                                    <!-- botones de editar y eliminar usuario -->
                                     <td class="p-6 text-right">
                                         <div class="flex justify-end gap-2">
+                                            <!-- formulario de edición: envía el id al controlador para cargar el formulario -->
                                             <form method="POST" action="../Controlador/controlador_admin.php" class="inline">
                                                 <input type="hidden" name="accion" value="editar_usuario">
                                                 <input type="hidden" name="id_usuario" value="<?php echo $usuario['id']; ?>">
@@ -188,6 +211,7 @@ include '../Partes/header.php';
                                                     <i class="fa-solid fa-pen-to-square"></i>
                                                 </button>
                                             </form>
+                                            <!-- formulario de eliminación: pide confirmación antes de borrar -->
                                             <form action="../Controlador/controlador_admin.php" method="POST" onsubmit="return confirm('¿Eliminar este usuario? Esta acción no se puede deshacer.')" class="inline">
                                                 <input type="hidden" name="accion" value="eliminar_usuario">
                                                 <input type="hidden" name="id_usuario" value="<?php echo $usuario['id']; ?>">
@@ -200,6 +224,7 @@ include '../Partes/header.php';
                                 </tr>
                             <?php endwhile; ?>
                         <?php else: ?>
+                            <!-- mensaje si no hay usuarios registrados -->
                             <tr>
                                 <td colspan="4" class="p-10 text-center text-gray-400 italic">No hay usuarios registrados.</td>
                             </tr>

@@ -1,7 +1,6 @@
 <?php
 
-
-// Obtener el resultado de las quedadas para recorrerlo en la vista
+// devuelve todas las quedadas con estado 'disponible' ordenadas por fecha
 function obtener_resultado_quedadas($conexion) {
     $sql = "SELECT id, titulo, descripcion, fecha, hora_inicio, hora_fin, ubicacion, provincia, plazas_totales, plazas_ocupadas, estado 
             FROM quedadas 
@@ -12,7 +11,7 @@ function obtener_resultado_quedadas($conexion) {
 
     if ($stmt) {
         mysqli_stmt_execute($stmt);
-        // Devolvemos el recurso/resultado en bruto directamente
+        // devolvemos el resultado en bruto para recorrerlo en la vista
         $resultado = mysqli_stmt_get_result($stmt);
         return $resultado; 
     }
@@ -20,10 +19,54 @@ function obtener_resultado_quedadas($conexion) {
     return false;
 }
 
+// devuelve el número de quedadas futuras en las que está inscrito un usuario
+function obtener_total_quedadas_pendientes_usuario($conexion, $id_usuario) {
+    $sql = "SELECT COUNT(*) AS total 
+            FROM inscripciones i 
+            INNER JOIN quedadas q ON i.id_quedada = q.id 
+            WHERE i.id_usuario = ? 
+              AND q.fecha >= CURDATE()";
 
+    $stmt = mysqli_prepare($conexion, $sql);
+    if (!$stmt) {
+        return 0;
+    }
 
+    mysqli_stmt_bind_param($stmt, "i", $id_usuario);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
+    $fila = mysqli_fetch_assoc($resultado);
+    mysqli_stmt_close($stmt);
 
-// Insertar la inscripción de un usuario
+    return intval($fila['total'] ?? 0);
+}
+
+// devuelve las próximas quedadas de un usuario ordenadas por fecha, con un límite de 4 por defecto
+function obtener_proximas_quedadas_usuario($conexion, $id_usuario, $limite = 4) {
+    $sql = "SELECT q.id, q.titulo, q.descripcion, q.fecha, q.hora_inicio, q.hora_fin, q.ubicacion, q.provincia 
+            FROM inscripciones i 
+            INNER JOIN quedadas q ON i.id_quedada = q.id 
+            WHERE i.id_usuario = ? 
+              AND q.fecha >= CURDATE() 
+              AND q.estado = 'disponible' 
+            ORDER BY q.fecha ASC 
+            LIMIT ?";
+
+    $stmt = mysqli_prepare($conexion, $sql);
+    if (!$stmt) {
+        return [];
+    }
+
+    mysqli_stmt_bind_param($stmt, "ii", $id_usuario, $limite);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
+    $proximas = mysqli_fetch_all($resultado, MYSQLI_ASSOC);
+    mysqli_stmt_close($stmt);
+
+    return $proximas;
+}
+
+// inserta una inscripción en la base de datos
 function insertar_inscripcion_usuario($conexion, $id_usuario, $id_quedada) {
     $sql = "INSERT INTO inscripciones (id_usuario, id_quedada) VALUES (?, ?)";
     $stmt = mysqli_prepare($conexion, $sql);
@@ -31,28 +74,78 @@ function insertar_inscripcion_usuario($conexion, $id_usuario, $id_quedada) {
     if ($stmt) {
         mysqli_stmt_bind_param($stmt, "ii", $id_usuario, $id_quedada);
         
-        
         try {
             $exito = mysqli_stmt_execute($stmt);
             mysqli_stmt_close($stmt);
-            return $exito; // Devuelve true si se inserta por primera vez
+            return $exito;
         } 
-        // Para evitar duplicados en las quedadas
+        // capturamos el error 1062 de mysql que indica clave duplicada (ya inscrito)
         catch (mysqli_sql_exception $e) {
             mysqli_stmt_close($stmt);
-            
-            
             if ($e->getCode() === 1062) {
                 return 'duplicado'; 
             }
-            
-           
         }
     }
     return false;
 }
 
-// Para Sumar +1 a las plazas ocupadas
+// comprueba si un usuario ya está inscrito en una quedada concreta
+function esta_inscrito($conexion, $id_usuario, $id_quedada) {
+    $sql = "SELECT COUNT(*) AS cnt FROM inscripciones WHERE id_usuario = ? AND id_quedada = ?";
+    $stmt = mysqli_prepare($conexion, $sql);
+    if (!$stmt) return false;
+    mysqli_stmt_bind_param($stmt, "ii", $id_usuario, $id_quedada);
+    mysqli_stmt_execute($stmt);
+    $resultado = mysqli_stmt_get_result($stmt);
+    $fila = mysqli_fetch_assoc($resultado);
+    mysqli_stmt_close($stmt);
+    return intval($fila['cnt'] ?? 0) > 0;
+}
+
+// resta 1 a las plazas ocupadas de una quedada, comprobando antes que no estén ya a 0
+function decrementar_plazas_ocupadas($conexion, $id_quedada) {
+    // obtenemos el valor actual para no bajar de 0
+    $sql_obtener = "SELECT plazas_ocupadas FROM quedadas WHERE id = ?";
+    $stmt_obtener = mysqli_prepare($conexion, $sql_obtener);
+    if (!$stmt_obtener) return false;
+    
+    mysqli_stmt_bind_param($stmt_obtener, "i", $id_quedada);
+    mysqli_stmt_execute($stmt_obtener);
+    $resultado = mysqli_stmt_get_result($stmt_obtener);
+    $fila = mysqli_fetch_assoc($resultado);
+    mysqli_stmt_close($stmt_obtener);
+    
+    $plazas_actuales = intval($fila['plazas_ocupadas'] ?? 0);
+    
+    // solo restamos si hay al menos una plaza ocupada
+    if ($plazas_actuales > 0) {
+        $sql = "UPDATE quedadas SET plazas_ocupadas = plazas_ocupadas - 1 WHERE id = ?";
+        $stmt = mysqli_prepare($conexion, $sql);
+        if ($stmt) {
+            mysqli_stmt_bind_param($stmt, "i", $id_quedada);
+            $exito = mysqli_stmt_execute($stmt);
+            mysqli_stmt_close($stmt);
+            return $exito;
+        }
+    }
+    return false;
+}
+
+// elimina la inscripción de un usuario en una quedada concreta
+function eliminar_inscripcion_usuario($conexion, $id_usuario, $id_quedada) {
+    $sql = "DELETE FROM inscripciones WHERE id_usuario = ? AND id_quedada = ?";
+    $stmt = mysqli_prepare($conexion, $sql);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "ii", $id_usuario, $id_quedada);
+        $ejecucion = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $ejecucion;
+    }
+    return false;
+}
+
+// suma 1 a las plazas ocupadas cuando un usuario se inscribe
 function incrementar_plazas_ocupadas($conexion, $id_quedada) {
     $sql = "UPDATE quedadas SET plazas_ocupadas = plazas_ocupadas + 1 WHERE id = ?";
     $stmt = mysqli_prepare($conexion, $sql);
@@ -66,13 +159,41 @@ function incrementar_plazas_ocupadas($conexion, $id_quedada) {
     return $exito;
 }
 
-// Función para ver todas las quedadas en el panel admin (incluyendo las llenas)
+// devuelve todos los datos de una quedada buscándola por su id
+function obtener_quedada_por_id($conexion, $id_quedada) {
+    $sql = "SELECT * FROM quedadas WHERE id = ?";
+    $stmt = mysqli_prepare($conexion, $sql);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "i", $id_quedada);
+        mysqli_stmt_execute($stmt);
+        $resultado = mysqli_stmt_get_result($stmt);
+        $quedada = mysqli_fetch_assoc($resultado);
+        mysqli_stmt_close($stmt);
+        return $quedada;
+    }
+    return false;
+}
+
+// actualiza los datos de una quedada existente
+function actualizar_quedada($conexion, $id_quedada, $titulo, $descripcion, $fecha, $hora_inicio, $hora_fin, $ubicacion, $provincia, $plazas_totales) {
+    $sql = "UPDATE quedadas SET titulo = ?, descripcion = ?, fecha = ?, hora_inicio = ?, hora_fin = ?, ubicacion = ?, provincia = ?, plazas_totales = ? WHERE id = ?";
+    $stmt = mysqli_prepare($conexion, $sql);
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "ssssssiii", $titulo, $descripcion, $fecha, $hora_inicio, $hora_fin, $ubicacion, $provincia, $plazas_totales, $id_quedada);
+        $ejecucion = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $ejecucion;
+    }
+    return false;
+}
+
+// devuelve todas las quedadas para el panel admin, incluidas las archivadas
 function obtener_quedadas_admin($conexion) {
     $sql = "SELECT * FROM quedadas ORDER BY fecha ASC";
     return mysqli_query($conexion, $sql);
 }
 
-// Función para listar los voluntarios de una quedada concreta
+// devuelve el listado de voluntarios inscritos en una quedada concreta
 function obtener_voluntarios_quedada($conexion, $id_quedada) {
     $sql = "SELECT u.nombre, u.email, i.fecha_inscripcion 
             FROM inscripciones i
@@ -89,8 +210,7 @@ function obtener_voluntarios_quedada($conexion, $id_quedada) {
     return false;
 }
 
-// Función 1: Resetea el contador de la tabla quedadas
- 
+// pone el contador de plazas ocupadas a 0 en una quedada
 function resetear_contador_plazas($conexion, $id_quedada) {
     $sql = "UPDATE quedadas SET plazas_ocupadas = 0 WHERE id = ?";
     $stmt = mysqli_prepare($conexion, $sql);
@@ -104,9 +224,7 @@ function resetear_contador_plazas($conexion, $id_quedada) {
     return false;
 }
 
-
- //Función 2: Borra todos los inscritos de una quedada específica
- 
+// elimina todas las inscripciones de una quedada, se usa antes de archivarla
 function eliminar_inscripciones_quedada($conexion, $id_quedada) {
     $sql = "DELETE FROM inscripciones WHERE id_quedada = ?";
     $stmt = mysqli_prepare($conexion, $sql);
@@ -120,6 +238,7 @@ function eliminar_inscripciones_quedada($conexion, $id_quedada) {
     return false;
 }
 
+// elimina físicamente una quedada de la base de datos
 function eliminar_quedada($conexion, $id_quedada) {
     $sql = "DELETE FROM quedadas WHERE id = ?";
     $stmt = mysqli_prepare($conexion, $sql);
@@ -133,6 +252,36 @@ function eliminar_quedada($conexion, $id_quedada) {
     return false;
 }
 
+// cambia el estado de una quedada, usado para archivarla sin borrarla físicamente
+function cambiar_estado_quedada($conexion, $id_quedada, $nuevo_estado) {
+    $sql = "UPDATE quedadas SET estado = ? WHERE id = ?";
+    $stmt = mysqli_prepare($conexion, $sql);
+    
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "si", $nuevo_estado, $id_quedada);
+        $ejecucion = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $ejecucion;
+    }
+    return false;
+}
+
+// inserta una nueva quedada con plazas_ocupadas a 0 y estado 'disponible' por defecto
+function insertar_quedada($conexion, $titulo, $descripcion, $fecha, $hora_inicio, $hora_fin, $ubicacion, $provincia, $plazas_totales, $estado = 'disponible') {
+    $sql = "INSERT INTO quedadas (titulo, descripcion, fecha, hora_inicio, hora_fin, ubicacion, provincia, plazas_totales, plazas_ocupadas, estado) 
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, ?)";
+    $stmt = mysqli_prepare($conexion, $sql);
+    
+    if ($stmt) {
+        mysqli_stmt_bind_param($stmt, "sssssssis", $titulo, $descripcion, $fecha, $hora_inicio, $hora_fin, $ubicacion, $provincia, $plazas_totales, $estado);
+        $ejecucion = mysqli_stmt_execute($stmt);
+        mysqli_stmt_close($stmt);
+        return $ejecucion;
+    }
+    return false;
+}
+
+// elimina todas las inscripciones de un usuario, se usa antes de eliminar su cuenta
 function eliminar_inscripciones_usuario($conexion, $id_usuario) {
     $sql = "DELETE FROM inscripciones WHERE id_usuario = ?";
     $stmt = mysqli_prepare($conexion, $sql);
@@ -146,28 +295,4 @@ function eliminar_inscripciones_usuario($conexion, $id_usuario) {
     return false;
 }
 
-function obtener_estadisticas_admin($conexion) {
-    $metrics = [
-        'total_quedadas' => 0,
-        'total_usuarios' => 0,
-        'total_plazas_ocupadas' => 0
-    ];
-
-    $resQ = mysqli_query($conexion, "SELECT COUNT(id) AS cnt, COALESCE(SUM(plazas_ocupadas),0) AS suma FROM quedadas");
-    if ($resQ) {
-        $r = mysqli_fetch_assoc($resQ);
-        $metrics['total_quedadas'] = intval($r['cnt']);
-        $metrics['total_plazas_ocupadas'] = intval($r['suma']);
-    }
-
-    $resU = mysqli_query($conexion, "SELECT COUNT(id) AS cnt FROM usuarios");
-    if ($resU) {
-        $r = mysqli_fetch_assoc($resU);
-        $metrics['total_usuarios'] = intval($r['cnt']);
-    }
-
-    return $metrics;
-}
 ?>
-
-

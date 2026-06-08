@@ -1,11 +1,12 @@
 <?php
-// Reanudamos la sesión existente para poder manipularla
+// Controlador de logout: cierra la sesión y redirige al login.
+// Iniciamos la sesión para poder manipularla
 session_start();
 
-//  Vaciamos todas las variables de sesión ($_SESSION['usuario'], $_SESSION['rol'], etc.)
+//  Vaciamos todas las variables de sesión 
 session_unset();
 
-//  Destruimos la sesión por completo en el servidor
+//  Destruimos la sesión por completo 
 session_destroy();
 
 //  Redirigimos al usuario al login o al inicio

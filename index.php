@@ -3,58 +3,40 @@
 include 'partes/header.php';
 ?>
 
-<!-- SECCION PORTADA -->
 <section class="relative w-full h-[800px] flex items-center justify-center overflow-hidden">
-    
-    <!-- IMAGEN DE FONDO -->
     <img src="../assets/imagenes/lince_inicio1.jpg" 
          alt="Lince Ibérico" 
          class="absolute inset-0 w-full h-full object-cover">
 
-    <!-- CAPA VERDE PARA LA IMAGEN -->
     <div class="absolute inset-0 bg-[#1a4d2e]/60 "></div>
 
-    <!-- CONTENIDO PRINCIPAL -->
     <div class="relative z-10 text-center px-4 max-w-3xl">
-        
-        <!-- TITULO PRINCIPAL -->
         <h2 class="text-4xl md:text-6xl font-serif font-bold text-white mb-6 leading-tight">
             Protegemos el <span class="text-[#D2691E]">Latido</span> del Bosque
         </h2>
-
-        <!-- TEXTO DESCRIPTIVO -->
         <p class="text-white/90 text-lg md:text-xl mb-10 leading-relaxed">
             Únete a nuestra misión de conservar al lince ibérico y restaurar su hábitat natural. 
             Cada acción cuenta para asegurar el futuro de nuestra fauna más emblemática.
         </p>
 
-        <!-- BOTONES -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            
-            <!-- BOTON DONACIONES -->
-            <a href="donaciones.php" class="bg-[#D2691E] text-white px-8 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2 shadow-xl">
+            <a href="../vista/donaciones.php" class="bg-[#D2691E] text-white px-8 py-4 rounded-xl font-bold text-lg hover:scale-105 transition-transform flex items-center justify-center gap-2 shadow-xl">
                 <span>&#9825;</span> Hacer una donación
             </a>
 
-            <!-- BOTON QUEDADAS -->
-            <a href="quedada.php" 
+            <a href="../vista/quedadas.php" 
                class="group flex items-center justify-between bg-[#f8f9f4] text-[#1a4d2e] px-6 py-4 rounded-2xl font-semibold text-lg w-full sm:w-72 shadow-md hover:bg-white transition-all">
-    
                 <div class="flex items-center gap-3">
                     <span>Ver quedadas</span>
                 </div>
-
                 <i class="fa-solid fa-arrow-right transition-transform group-hover:translate-x-1"></i>
             </a>
         </div>
     </div>
 </section>
 
-<!-- SECCION MISIONES -->
 <section class="bg-[#f8f7f4] py-20 px-4">
     <div class="max-w-6xl mx-auto">
-        
-        <!-- ENCABEZADO -->
         <div class="text-center mb-16">
             <span class="bg-gray-200 text-[#1a4d2e] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
                 Nuestra Misión
@@ -67,10 +49,7 @@ include 'partes/header.php';
             </p>
         </div>
 
-        <!-- TARJETAS -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            
-            <!-- TARJETA CONSERVACION -->
             <div class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-shadow text-center flex flex-col items-center">
                 <div class="w-16 h-16 bg-[#D2691E] rounded-2xl flex items-center justify-center text-white text-3xl mb-6 shadow-lg shadow-orange-200">
                     <i class="fa-solid fa-heart"></i>
@@ -81,7 +60,6 @@ include 'partes/header.php';
                 </p>
             </div>
 
-            <!-- TARJETA LIMPIEZA -->
             <div class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-shadow text-center flex flex-col items-center">
                 <div class="w-16 h-16 bg-[#D2691E] rounded-2xl flex items-center justify-center text-white text-3xl mb-6 shadow-lg shadow-orange-200">
                     <i class="fa-solid fa-tree"></i>
@@ -92,18 +70,16 @@ include 'partes/header.php';
                 </p>
             </div>
 
-            <!-- TARJETA COMUNIDAD -->
             <div class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-shadow text-center flex flex-col items-center">
                 <div class="w-16 h-16 bg-[#D2691E] rounded-2xl flex items-center justify-center text-white text-3xl mb-6 shadow-lg shadow-orange-200">
                     <i class="fa-solid fa-users"></i>
                 </div>
                 <h3 class="text-xl font-bold text-[#1a4d2e] mb-4 font-serif">Comunidad Unida</h3>
                 <p class="text-gray-500 leading-relaxed">
-                    Miles de voluntarios comprometidos con la causa, formando una red de protección activa.
+                    Miles de voluntarios comprometidos con la causa, forming una red de protección activa.
                 </p>
             </div>
 
-            <!-- TARJETA EDUCACION -->
             <div class="bg-white p-10 rounded-3xl shadow-sm hover:shadow-xl transition-shadow text-center flex flex-col items-center">
                 <div class="w-16 h-16 bg-[#D2691E] rounded-2xl flex items-center justify-center text-white text-3xl mb-6 shadow-lg shadow-orange-200">
                     <i class="fa-solid fa-shield-halved"></i>
@@ -113,105 +89,128 @@ include 'partes/header.php';
                     Sensibilizamos a las nuevas generaciones sobre la importancia de conservar nuestra fauna.
                 </p>
             </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-[#f4f1ea] py-20 px-4">
+    <div class="max-w-6xl mx-auto">
+        
+        <div class="text-center mb-16">
+            <span class="bg-gray-200 text-[#1a4d2e] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+                Logros conseguidos
+            </span>
+            <h2 class="text-4xl font-serif font-bold text-[#1a4d2e] mt-6 mb-4">
+                Nuestro Impacto Real
+            </h2>
+            <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Gracias al apoyo de los donantes y al esfuerzo de los voluntarios en las quedadas, alcanzamos metas vitales.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="../assets/imagenes/cachorros_inicio.jpg" alt="Recuperación" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <span class="absolute top-4 left-4 bg-[#1a4d2e] text-white text-xs font-bold px-3 py-1 rounded-full">
+                        Población
+                    </span>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-bold text-[#1a4d2e] mb-3 font-serif leading-snug">
+                        Consolidación en Sierra Morena
+                    </h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                        Superamos el umbral crítico de ejemplares censados en la zona, garantizando una mayor variabilidad genética de la especie.
+                    </p>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="../assets/imagenes/sierradeandujar.jpg" alt="Espacio Seguro" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <span class="absolute top-4 left-4 bg-[#1a4d2e] text-white text-xs font-bold px-3 py-1 rounded-full">
+                        Territorio
+                    </span>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-bold text-[#1a4d2e] mb-3 font-serif leading-snug">
+                        Hectáreas Libres de Residuos
+                    </h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                        A través de las quedadas de limpieza masivas, hemos descontaminado de plástico corredores ecológicos clave para los linces.
+                    </p>
+                </div>
+            </article>
+
+            <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group">
+                <div class="relative h-56 overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80" alt="Concienciación" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <span class="absolute top-4 left-4 bg-[#1a4d2e] text-white text-xs font-bold px-3 py-1 rounded-full">
+                        Sociedad
+                    </span>
+                </div>
+                <div class="p-8">
+                    <h3 class="text-xl font-bold text-[#1a4d2e] mb-3 font-serif leading-snug">
+                        Concienciación Rural Activa
+                    </h3>
+                    <p class="text-gray-500 text-sm leading-relaxed mb-6">
+                        Logramos acuerdos de colaboración con fincas agrícolas colindantes para asegurar pasos seguros y balsas de agua adaptadas.
+                    </p>
+                </div>
+            </article>
 
         </div>
     </div>
 </section>
 
-<!-- SECCION NOTICIAS -->
-<section class="bg-[#f4f1ea] py-20 px-4">
+<section class="bg-white py-20 px-4">
     <div class="max-w-6xl mx-auto">
         
-        <!-- ENCABEZADO -->
         <div class="text-center mb-16">
-            <span class="bg-gray-200 text-[#1a4d2e] text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
-                Últimas noticias
+            <span class="bg-amber-100 text-amber-800 text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
+                ¡Pasa a la acción!
             </span>
             <h2 class="text-4xl font-serif font-bold text-[#1a4d2e] mt-6 mb-4">
-                Novedades del Lince
+                ¿Cómo puedes colaborar?
             </h2>
             <p class="text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                Mantente informado sobre nuestras actividades y los avances en la conservación del lince ibérico.
+                No importa tu disponibilidad o recursos, existen diferentes maneras de arrimar el hombro por la causa.
             </p>
         </div>
 
-        <!-- LISTADO DE NOTICIAS -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             
-            <!-- NOTICIA 1 -->
-            <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group">
-                <div class="relative h-56 overflow-hidden">
-                    <img src="../assets/imagenes/cachorros_inicio.jpg" alt="Cachorros" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <span class="absolute top-4 left-4 bg-[#D2691E] text-white text-xs font-bold px-3 py-1 rounded-full">
-                        Conservación
-                    </span>
-                </div>
-                <div class="p-8">
-                    <div class="flex items-center gap-4 text-gray-400 text-xs mb-4">
-                        <span class="flex items-center gap-1"><i class="fa-regular fa-calendar"></i> 15 Enero 2024</span>
-                        <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> Doñana, Huelva</span>
+            <div class="bg-[#f8f7f4] p-8 rounded-3xl border border-gray-100 flex flex-col justify-between items-start transition-all hover:shadow-md">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-[#1a4d2e] text-white flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-person-hiking"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-[#1a4d2e] mb-4 font-serif leading-snug">
-                        Nuevo nacimiento de cachorros en Doñana
-                    </h3>
+                    <h3 class="text-2xl font-serif font-bold text-[#1a4d2e] mb-3">Apúntate a una Quedada</h3>
                     <p class="text-gray-500 text-sm leading-relaxed mb-6">
-                        Celebramos la llegada de una nueva camada que refuerza la población en el área protegida.
+                        Ven al terreno con nosotros. Limpiamos zonas críticas de vertidos, reforestamos bosques mediterráneos y adecuamos espacios para el lince.
                     </p>
-                    <a href="#" class="text-[#1a4d2e] font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">
-                        Leer más <i class="fa-solid fa-arrow-right"></i>
-                    </a>
                 </div>
-            </article>
+                <a href="../vista/quedadas.php" class="inline-flex items-center gap-2 bg-[#1a4d2e] text-white font-bold px-5 py-3 rounded-xl text-sm hover:bg-[#143d24] transition-colors">
+                    Ver próximos eventos <i class="fa-solid fa-arrow-right text-xs"></i>
+                </a>
+            </div>
 
-            <!-- NOTICIA 2 -->
-            <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group">
-                <div class="relative h-56 overflow-hidden">
-                    <img src="../assets/imagenes/sierradeandujar.jpg" alt="Hábitat" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <span class="absolute top-4 left-4 bg-[#D2691E] text-white text-xs font-bold px-3 py-1 rounded-full">
-                        Actividades
-                    </span>
-                </div>
-                <div class="p-8">
-                    <div class="flex items-center gap-4 text-gray-400 text-xs mb-4">
-                        <span class="flex items-center gap-1"><i class="fa-regular fa-calendar"></i> 10 Enero 2024</span>
-                        <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> Sierra de Andújar</span>
+            <div class="bg-[#f8f7f4] p-8 rounded-3xl border border-gray-100 flex flex-col justify-between items-start transition-all hover:shadow-md">
+                <div>
+                    <div class="w-12 h-12 rounded-xl bg-[#D2691E] text-white flex items-center justify-center text-xl mb-6">
+                        <i class="fa-solid fa-hand-holding-dollar"></i>
                     </div>
-                    <h3 class="text-xl font-bold text-[#1a4d2e] mb-4 font-serif leading-snug">
-                        Jornada de reforestación masiva
-                    </h3>
+                    <h3 class="text-2xl font-serif font-bold text-[#1a4d2e] mb-3">Realiza una Donación</h3>
                     <p class="text-gray-500 text-sm leading-relaxed mb-6">
-                        Más de 100 voluntarios plantaron especies autóctonas para mejorar el hábitat del lince.
+                        Financia de manera directa el vallado térmico de las zonas de cría, los proyectos de monitorización científica y la compra de suministros médicos.
                     </p>
-                    <a href="#" class="text-[#1a4d2e] font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">
-                        Leer más <i class="fa-solid fa-arrow-right"></i>
-                    </a>
                 </div>
-            </article>
-
-            <!-- NOTICIA 3 -->
-            <article class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all group">
-                <div class="relative h-56 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&q=80" alt="Educación" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    <span class="absolute top-4 left-4 bg-[#D2691E] text-white text-xs font-bold px-3 py-1 rounded-full">
-                        Educación
-                    </span>
-                </div>
-                <div class="p-8">
-                    <div class="flex items-center gap-4 text-gray-400 text-xs mb-4">
-                        <span class="flex items-center gap-1"><i class="fa-regular fa-calendar"></i> 5 Enero 2024</span>
-                        <span class="flex items-center gap-1"><i class="fa-solid fa-location-dot"></i> Andalucía</span>
-                    </div>
-                    <h3 class="text-xl font-bold text-[#1a4d2e] mb-4 font-serif leading-snug">
-                        Programa de educación ambiental en colegios
-                    </h3>
-                    <p class="text-gray-500 text-sm leading-relaxed mb-6">
-                        Lanzamos un nuevo programa educativo para sensibilizar a los más jóvenes sobre el lince.
-                    </p>
-                    <a href="#" class="text-[#1a4d2e] font-bold text-sm flex items-center gap-2 hover:gap-3 transition-all">
-                        Leer más <i class="fa-solid fa-arrow-right"></i>
-                    </a>
-                </div>
-            </article>
+                <a href="../vista/donaciones.php" class="inline-flex items-center gap-2 bg-[#D2691E] text-white font-bold px-5 py-3 rounded-xl text-sm hover:bg-[#b85c1a] transition-colors">
+                    Donar ahora <i class="fa-solid fa-heart text-xs"></i>
+                </a>
+            </div>
 
         </div>
     </div>
