@@ -67,6 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errores[] = "Las plazas totales deben ser mayores a 0.";
     }
 
+    //Guardamos los datos en un array
+
     $quedada = [
         'id' => $id,
         'titulo' => $titulo,
@@ -84,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
 
+    //Utilizamos la funcion actualizar las quedadas si no hay errores
     $exito = actualizar_quedada($conexion, $id, $titulo, $descripcion, $fecha, $hora_inicio, $hora_fin, $ubicacion, $provincia, $plazas_totales);
     if ($exito) {
         $_SESSION['mensaje_exito'] = "Quedada actualizada correctamente.";
