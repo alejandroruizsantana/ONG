@@ -88,7 +88,7 @@ include '../Partes/header.php';
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 
                 <!-- Bronce -->
-                <div class="p-8 rounded-3xl shadow-sm text-center transition-transform duration-300 hover:scale-105 <?php echo $bronce_completado ? 'bg-emerald-50 border border-emerald-300 shadow-md' : 'bg-white border border-yellow-200'; ?>">
+                <div class="p-8 rounded-3xl shadow-sm text-center transition-transform duration-300 hover:scale-105 <?php echo $bronce_completado ? 'bg-emerald-50 border border-emerald-300 shadow-md' : 'bg-white border-yellow-200'; ?>">
                     <div class="w-14 h-14 <?php echo $bronce_completado ? 'bg-emerald-100 text-emerald-700' : 'bg-orange-100 text-[#D2691E]'; ?> rounded-2xl flex items-center justify-center mx-auto mb-6 text-xl">
                         <i class="fa-solid fa-file-invoice"></i>
                     </div>
@@ -105,7 +105,7 @@ include '../Partes/header.php';
                 </div>
 
                 <!-- Plata -->
-                <div class="p-8 rounded-3xl shadow-sm text-center transition-transform duration-300 hover:scale-105 <?php echo $plata_completado ? 'bg-emerald-50 border border-emerald-300 shadow-md' : 'bg-white border border-yellow-200'; ?>">
+                <div class="p-8 rounded-3xl shadow-sm text-center transition-transform duration-300 hover:scale-105 <?php echo $plata_completado ? 'bg-emerald-50 border border-emerald-300 shadow-md' : 'bg-white border-yellow-200'; ?>">
                     <div class="w-14 h-14 <?php echo $plata_completado ? 'bg-emerald-100 text-emerald-700' : 'bg-blue-50 text-blue-500'; ?> rounded-2xl flex items-center justify-center mx-auto mb-6 text-xl">
                         <i class="fa-solid fa-shirt"></i>
                     </div>
@@ -123,7 +123,7 @@ include '../Partes/header.php';
                 </div>
 
                 <!-- Oro -->
-                <div class="p-8 rounded-3xl shadow-sm text-center transition-transform duration-300 hover:scale-105 <?php echo $oro_completado ? 'bg-emerald-50 border border-emerald-300 shadow-md' : 'bg-white border border-yellow-200'; ?>">
+                <div class="p-8 rounded-3xl shadow-sm text-center transition-transform duration-300 hover:scale-105 <?php echo $oro_completado ? 'bg-emerald-50 border border-emerald-300 shadow-md' : 'bg-white border-yellow-200'; ?>">
                     <div class="w-14 h-14 <?php echo $oro_completado ? 'bg-emerald-100 text-emerald-700' : 'bg-yellow-50 text-yellow-600'; ?> rounded-2xl flex items-center justify-center mx-auto mb-6 text-xl">
                         <i class="fa-solid fa-binoculars"></i>
                     </div>
