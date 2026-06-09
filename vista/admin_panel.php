@@ -177,7 +177,6 @@ include '../Partes/header.php';
                 <table class="w-full text-left min-w-[720px]">
                     <thead class="bg-gray-50 border-b border-gray-100">
                         <tr>
-                            <th class="p-6 text-sm font-bold text-gray-400 uppercase tracking-wider">ID</th>
                             <th class="p-6 text-sm font-bold text-gray-400 uppercase tracking-wider">Usuario</th>
                             <th class="p-6 text-sm font-bold text-gray-400 uppercase tracking-wider">Email</th>
                             <th class="p-6 text-sm font-bold text-gray-400 uppercase tracking-wider">Rol</th>
@@ -188,7 +187,6 @@ include '../Partes/header.php';
                         <?php if ($usuariosAdmin && mysqli_num_rows($usuariosAdmin) > 0): ?>
                             <?php while ($usuario = mysqli_fetch_assoc($usuariosAdmin)): ?>
                                 <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="p-6 text-sm text-gray-600"><?php echo $usuario['id']; ?></td>
                                     <td class="p-6 text-sm text-gray-600"><?php echo htmlspecialchars($usuario['usuario']); ?></td>
                                     <td class="p-6 text-sm text-gray-600"><?php echo htmlspecialchars($usuario['email']); ?></td>
                                     <!-- badge de rol: azul para admin, verde para usuario normal -->

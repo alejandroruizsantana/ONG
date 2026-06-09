@@ -92,7 +92,8 @@ include '../Partes/header.php';
                             <input type="number" 
                                    name="cantidad" 
                                    id="cantidad_donar" 
-                                   min="1" 
+                                   min="1"
+                                   max="500"
                                    required 
                                    value="<?php echo $montoSeleccionado ? htmlspecialchars($montoSeleccionado) : ''; ?>"
                                    placeholder="Ej. 25" 
