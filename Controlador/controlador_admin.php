@@ -69,6 +69,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['accion']) && $_POST['accion'] === 'eliminar_usuario' && isset($_POST['id_usuario'])) {
         $id = intval($_POST['id_usuario']);
 
+        // comprobamos si el usuario tiene donaciones antes de eliminarlo
+        $donaciones = mysqli_query($conexion, "SELECT COUNT(*) AS total FROM donaciones WHERE id_usuario = $id");
+        $fila = mysqli_fetch_assoc($donaciones);
+        if ($fila['total'] > 0) {
+            $_SESSION['mensaje_error'] = "No se puede eliminar este usuario porque tiene donaciones registradas.";
+            $_SESSION['activeTab'] = 'usuarios';
+            header("Location: controlador_admin.php");
+            exit();
+        }
+
         // decrementamos las plazas de cada quedada en la que estaba inscrito
         $inscripciones = mysqli_query($conexion, "SELECT id_quedada FROM inscripciones WHERE id_usuario = $id");
         if ($inscripciones) {
@@ -91,6 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: controlador_admin.php");
         exit();
     }
+    
 
     // guardamos los cambios del formulario de edición en la base de datos
     if (isset($_POST['accion']) && $_POST['accion'] === 'guardar_usuario' && isset($_POST['id_usuario'])) {
