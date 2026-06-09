@@ -35,6 +35,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['accion']) && $_POST['
         exit();
     }
 
+    // si el usuario ha introducido nueva contraseña comprobamos que no sea igual a la actual
+    if (!empty($nueva_pass)) {
+        $usuario_completo = mysqli_query($conexion, "SELECT contrasena FROM usuarios WHERE id = $id");
+        $fila = mysqli_fetch_assoc($usuario_completo);
+        if (password_verify($nueva_pass, $fila['contrasena'])) {
+            $_SESSION['mensaje_error'] = 'La nueva contraseña no puede ser igual a la actual.';
+            header('Location: ../Controlador/controlador_editar_usuario.php');
+            exit();
+        }
+    }
+
     // solo procesamos la imagen si el usuario ha subido una nueva
     if (!empty($_FILES['nueva_foto']['name'])) {
         $validacion_imagen = validar_imagen($_FILES['nueva_foto']);
